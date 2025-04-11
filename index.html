@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MPower - Strength in Identity, Empowering Through Unity</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/crown-logo.png">
     <style>
         /* Prevent copying content */
         body {
@@ -147,15 +149,14 @@
         }
         
         .logo img {
-            height: 50px;
-            margin-right: 10px;
+            height: auto;
+            max-height: 50px;
+            max-width: 200px;
+            transition: all 0.3s ease;
         }
         
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: white;
+        .header-scrolled .logo img {
+            max-height: 40px;
         }
         
         nav ul {
@@ -210,6 +211,13 @@
             overflow: hidden;
         }
         
+        .hero .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
         .hero-content {
             position: relative;
             z-index: 1;
@@ -231,13 +239,27 @@
             margin-bottom: 40px;
         }
         
-        .hero-img {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50%;
-            opacity: 0.2;
+        .hero-logo {
+            position: relative;
+            z-index: 1;
+            margin-right: 50px;
+        }
+        
+        .floating-logo {
+            max-width: 200px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
         }
         
         /* About Section */
@@ -505,12 +527,14 @@
         .guidelines-content::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><text x="0" y="15" fill="rgba(255,255,255,0.03)" font-size="20">M</text></svg>');
-            opacity: 0.5;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background-image: url('./assets/images/crown-logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.15;
         }
         
         .guidelines-content h2 {
@@ -667,9 +691,10 @@
             right: -50px;
             width: 200px;
             height: 200px;
-            background-color: var(--primary-yellow);
-            border-radius: 50%;
-            opacity: 0.2;
+            background-image: url('./assets/images/crown-logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.1;
         }
         
         .coming-soon h2 {
@@ -819,12 +844,21 @@
                 padding: 140px 0 60px;
             }
             
+            .hero .container {
+                flex-direction: column;
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
             
-            .hero-img {
-                display: none;
+            .hero-logo {
+                margin: 40px auto 0;
+                text-align: center;
+            }
+            
+            .floating-logo {
+                max-width: 150px;
             }
             
             .section {
@@ -901,8 +935,7 @@
     <header id="header">
         <div class="container header-container">
             <div class="logo">
-                <img src="/api/placeholder/100/100" alt="MPower Logo" id="header-logo">
-                <div class="logo-text">MPower</div>
+                <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo" id="header-logo">
             </div>
             <button class="nav-toggle" id="nav-toggle">
                 <i class="fas fa-bars"></i>
@@ -928,6 +961,9 @@
                 <h1>Strength in <span>Identity</span>, Empowering Through <span>Unity</span></h1>
                 <p>MPower represents Black and minority professional masculine-presenting women and FTM individuals across various industries, creating a space where authenticity, strength, and unity thrive.</p>
                 <a href="#join" class="btn">Join Our Community</a>
+            </div>
+            <div class="hero-logo">
+                <img src="./assets/images/crown-logo.png" alt="MPower Crown Logo" class="floating-logo">
             </div>
         </div>
     </section>
@@ -976,7 +1012,7 @@
             <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">
-                        <img src="/api/placeholder/120/60" alt="MPower Logo">
+                        <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo">
                     </div>
                     <p>MPower is dedicated to creating a supportive space where Black and minority professional masculine-presenting women and FTM individuals can thrive through authentic connection and unity.</p>
                     <div class="social-links">
@@ -1262,10 +1298,8 @@
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 header.classList.add('header-scrolled');
-                headerLogo.style.height = '40px';
             } else {
                 header.classList.remove('header-scrolled');
-                headerLogo.style.height = '50px';
             }
         });
         
@@ -1571,7 +1605,7 @@
             <div class="blog-carousel">
                 <div class="blog-slide active" style="display: flex;">
                     <div class="blog-slide-img">
-                        <img src="/api/placeholder/600/400" alt="Blog Post">
+                        <img src="./assets/images/blog/authentic-self.jpg" alt="Blog Post">
                     </div>
                     <div class="blog-slide-content">
                         <span class="blog-date">April 5, 2025</span>
@@ -1582,7 +1616,7 @@
                         
                         <div class="blog-author">
                             <div class="blog-author-img">
-                                <img src="/api/placeholder/60/60" alt="Author">
+                                <img src="./assets/images/team/janelle.jpg" alt="Author">
                             </div>
                             <div>
                                 <div class="blog-author-name">Janelle Reynolds</div>
@@ -1594,7 +1628,7 @@
                 
                 <div class="blog-slide" style="display: flex;">
                     <div class="blog-slide-img">
-                        <img src="/api/placeholder/600/400" alt="Vlog Post">
+                        <img src="./assets/images/blog/wealth-building.jpg" alt="Vlog Post">
                     </div>
                     <div class="blog-slide-content">
                         <span class="blog-date">March 22, 2025</span>
@@ -1605,7 +1639,7 @@
                         
                         <div class="blog-author">
                             <div class="blog-author-img">
-                                <img src="/api/placeholder/60/60" alt="Author">
+                                <img src="./assets/images/team/marcus.jpg" alt="Author">
                             </div>
                             <div>
                                 <div class="blog-author-name">Marcus Johnson</div>
@@ -1617,7 +1651,7 @@
                 
                 <div class="blog-slide" style="display: flex;">
                     <div class="blog-slide-img">
-                        <img src="/api/placeholder/600/400" alt="Blog Post">
+                        <img src="./assets/images/blog/mentorship.jpg" alt="Blog Post">
                     </div>
                     <div class="blog-slide-content">
                         <span class="blog-date">March 10, 2025</span>
@@ -1628,7 +1662,7 @@
                         
                         <div class="blog-author">
                             <div class="blog-author-img">
-                                <img src="/api/placeholder/60/60" alt="Author">
+                                <img src="./assets/images/team/alex.jpg" alt="Author">
                             </div>
                             <div>
                                 <div class="blog-author-name">Alex Rivera</div>
@@ -1658,7 +1692,7 @@
             
             <div class="event-carousel">
                 <div class="event-slide active">
-                    <img src="/api/placeholder/1200/500" alt="Networking Mixer Event">
+                    <img src="./assets/images/events/networking-mixer.jpg" alt="Networking Mixer Event">
                     <div class="event-info">
                         <span class="event-date">June 25, 2025</span>
                         <h3>Professional Networking Mixer</h3>
@@ -1666,7 +1700,7 @@
                     </div>
                 </div>
                 <div class="event-slide">
-                    <img src="/api/placeholder/1200/500" alt="Business Expo">
+                    <img src="./assets/images/events/business-expo.jpg" alt="Business Expo">
                     <div class="event-info">
                         <span class="event-date">August 12-14, 2025</span>
                         <h3>Annual Business Expo</h3>
@@ -1674,7 +1708,7 @@
                     </div>
                 </div>
                 <div class="event-slide">
-                    <img src="/api/placeholder/1200/500" alt="Educational Panel">
+                    <img src="./assets/images/events/educational-panel.jpg" alt="Educational Panel">
                     <div class="event-info">
                         <span class="event-date">July 8, 2025</span>
                         <h3>Navigating Professional Spaces Panel</h3>
