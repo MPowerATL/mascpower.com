@@ -1,1757 +1,2237 @@
-<!DOCTYPE html>
+</div>
+    
+<script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    const headerLogo = document.getElementById('header-logo');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('header-scrolled');
+        } else {
+            header.classList.remove('header-scrolled');
+        }
+    });
+    
+    // Mobile Navigation Toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking nav links
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+    });
+    
+    // Event Carousel
+    const eventSlides = document.querySelectorAll('.event-slide');
+    const eventDots = document.querySelectorAll('.events .carousel-controls .carousel-dot');
+    let currentEventSlide = 0;
+    
+    function showEventSlide(n) {
+        eventSlides.forEach(slide => slide.classList.remove('active'));
+        eventDots.forEach(dot => dot.classList.remove('active'));
+        
+        currentEventSlide = (n + eventSlides.length) % eventSlides.length;
+        
+        eventSlides[currentEventSlide].classList.add('active');
+        eventDots[currentEventSlide].classList.add('active');
+    }
+    
+    eventDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showEventSlide(index);
+        });
+    });
+    
+    // Auto-rotate event slides
+    setInterval(() => {
+        showEventSlide(currentEventSlide + 1);
+    }, 5000);
+    
+    // Blog Carousel
+    const blogSlides = document.querySelectorAll('.blog-slide');
+    const blogDots = document.querySelectorAll('.blog .carousel-controls .carousel-dot');
+    let currentBlogSlide = 0;
+    
+    function showBlogSlide(n) {
+        blogSlides.forEach(slide => slide.classList.remove('active'));
+        blogDots.forEach(dot => dot.classList.remove('active'));
+        
+        currentBlogSlide = (n + blogSlides.length) % blogSlides.length;
+        
+        blogSlides[currentBlogSlide].classList.add('active');
+        blogDots[currentBlogSlide].classList.add('active');
+    }
+    
+    blogDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showBlogSlide(index);
+        });
+    });
+    
+    // Auto-rotate blog slides
+    setInterval(() => {
+        showBlogSlide(currentBlogSlide + 1);
+    }, 7000);
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            if (this.getAttribute('href') === '#terms' || this.getAttribute('href') === '#privacy') {
+                return; // Let modal handlers take care of these
+            }
+            
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Form submission
+    const applicationForm = document.getElementById('application-form');
+    if (applicationForm) {
+        applicationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+            
+            // Normally this would send data to a server or Google Sheets
+            // For demo purposes, just show a success message
+            this.innerHTML = `
+                <div style="text-align: center; padding: 30px;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--primary-yellow); margin-bottom: 20px;"></i>
+                    <h3>Application Submitted!</h3>
+                    <p>Thank you for your interest in MPower. We've received your application and will contact you shortly.</p>
+                </div>
+            `;
+            
+            // In a real implementation, you would use Google Sheets API or another service
+            // to store the form data
+        });
+    }
+    
+    // Modal Functionality
+    const termsLink = document.querySelectorAll('a[href="#terms"]');
+    const privacyLink = document.querySelectorAll('a[href="#privacy"]');
+    const termsModal = document.getElementById('terms-modal');
+    const privacyModal = document.getElementById('privacy-modal');
+    const modalCloseButtons = document.querySelectorAll('.modal-close');
+    
+    function openModal(modal) {
+        modal.style.display = 'block';
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal(modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+        document.body.style.overflow = '';
+    }
+    
+    termsLink.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(termsModal);
+        });
+    });
+    
+    privacyLink.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(privacyModal);
+        });
+    });
+    
+    modalCloseButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            closeModal(modal);
+        });
+    });
+    
+    window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+            closeModal(e.target);
+        }
+    });
+    
+    // Prevent content copying except on form fields
+    document.addEventListener('contextmenu', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+        }
+    });
+    
+    document.addEventListener('copy', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+        }
+    });
+    
+    document.addEventListener('cut', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+        }
+    });
+    
+    document.addEventListener('paste', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+        }
+    });
+</script>
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MPower - Strength in Identity, Empowering Through Unity</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./assets/images/crown-logo.png">
-    <style>
-        /* Prevent copying content */
-        body {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPower - Strength in Identity, Empowering Through Unity</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="./assets/images/crown-logo.png">
+<style>
+    /* Prevent copying content */
+    body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* Base styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    :root {
+        --primary-yellow: #FFDE59;
+        --light-gray: #E4E2DD;
+        --black: #000000;
+        --dark-gray: #333333;
+        --medium-gray: #666666;
+    }
+    
+    body {
+        background-color: white;
+        color: var(--black);
+        line-height: 1.6;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    /* Typography */
+    h1, h2, h3, h4, h5 {
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    
+    h1 {
+        font-size: 3.5rem;
+        letter-spacing: -1px;
+    }
+    
+    h2 {
+        font-size: 2.5rem;
+        letter-spacing: -0.5px;
+    }
+    
+    h3 {
+        font-size: 2rem;
+    }
+    
+    p {
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+    
+    .btn {
+        display: inline-block;
+        background-color: var(--primary-yellow);
+        color: var(--black);
+        padding: 12px 30px;
+        border: none;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .btn:hover {
+        background-color: var(--black);
+        color: var(--primary-yellow);
+        transform: translateY(-3px);
+    }
+    
+    .btn-black {
+        background-color: var(--black);
+        color: var(--primary-yellow);
+    }
+    
+    .btn-black:hover {
+        background-color: var(--primary-yellow);
+        color: var(--black);
+    }
+    
+    .section {
+        padding: 80px 0;
+    }
+    
+    .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+    }
+    
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background-color: var(--primary-yellow);
+        margin: 20px auto 0;
+    }
+    
+    /* Header */
+    header {
+        background-color: var(--black);
+        color: white;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        top: 0;
+        padding: 15px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .header-scrolled {
+        padding: 10px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo img {
+        height: auto;
+        max-height: 50px;
+        max-width: 200px;
+        transition: all 0.3s ease;
+    }
+    
+    .header-scrolled .logo img {
+        max-height: 40px;
+    }
+    
+    nav ul {
+        display: flex;
+        list-style: none;
+    }
+    
+    nav ul li {
+        margin-left: 30px;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    nav ul li a::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-yellow);
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        transition: all 0.3s ease;
+    }
+    
+    nav ul li a:hover::after {
+        width: 100%;
+    }
+    
+    .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .hero {
+        background-color: var(--black);
+        color: white;
+        padding: 180px 0 100px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 650px;
+    }
+    
+    .hero h1 {
+        color: white;
+        margin-bottom: 30px;
+        line-height: 1.2;
+    }
+    
+    .hero h1 span {
+        color: var(--primary-yellow);
+    }
+    
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+    }
+    
+    .hero-logo {
+        position: relative;
+        z-index: 1;
+        margin-right: 50px;
+    }
+    
+    .floating-logo {
+        max-width: 200px;
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0% {
+            transform: translateY(0px);
         }
-        
-        /* Base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
+        50% {
+            transform: translateY(-20px);
         }
-        
-        :root {
-            --primary-yellow: #FFDE59;
-            --light-gray: #E4E2DD;
-            --black: #000000;
-            --dark-gray: #333333;
-            --medium-gray: #666666;
+        100% {
+            transform: translateY(0px);
         }
-        
-        body {
-            background-color: white;
-            color: var(--black);
-            line-height: 1.6;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Typography */
-        h1, h2, h3, h4, h5 {
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            letter-spacing: -1px;
-        }
-        
-        h2 {
-            font-size: 2.5rem;
-            letter-spacing: -0.5px;
-        }
-        
-        h3 {
-            font-size: 2rem;
-        }
-        
-        p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-yellow);
-            color: var(--black);
-            padding: 12px 30px;
-            border: none;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .btn:hover {
-            background-color: var(--black);
-            color: var(--primary-yellow);
-            transform: translateY(-3px);
-        }
-        
-        .btn-black {
-            background-color: var(--black);
-            color: var(--primary-yellow);
-        }
-        
-        .btn-black:hover {
-            background-color: var(--primary-yellow);
-            color: var(--black);
-        }
-        
-        .section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary-yellow);
-            margin: 20px auto 0;
-        }
-        
-        /* Header */
-        header {
-            background-color: var(--black);
-            color: white;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            top: 0;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-        }
-        
-        .header-scrolled {
-            padding: 10px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo img {
-            height: auto;
-            max-height: 50px;
-            max-width: 200px;
-            transition: all 0.3s ease;
-        }
-        
-        .header-scrolled .logo img {
-            max-height: 40px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        nav ul li a::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-yellow);
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            transition: all 0.3s ease;
-        }
-        
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
+    }
+    
+    /* About Section */
+    .about {
+        background-color: var(--light-gray);
+    }
+    
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+    
+    .about-text h2 {
+        margin-bottom: 30px;
+    }
+    
+    .about-text p {
+        margin-bottom: 25px;
+    }
+    
+    .about-img {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .about-img img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    /* Events Section */
+    .events {
+        background-color: white;
+    }
+    
+    .event-carousel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+    }
+    
+    .event-slide {
+        display: none;
+        position: relative;
+    }
+    
+    .event-slide.active {
+        display: block;
+        animation: fadeIn 0.8s ease;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .event-slide img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+    }
+    
+    .event-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        color: white;
+        padding: 30px;
+    }
+    
+    .event-info h3 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    
+    .event-date {
+        display: inline-block;
+        background-color: var(--primary-yellow);
+        color: var(--black);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    
+    .carousel-controls {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .carousel-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: var(--medium-gray);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+        background-color: var(--primary-yellow);
+        transform: scale(1.2);
+    }
+    
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-top: 60px;
+    }
+    
+    .event-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .event-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .event-card-img {
+        height: 200px;
+        overflow: hidden;
+    }
+    
+    .event-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s ease;
+    }
+    
+    .event-card:hover .event-card-img img {
+        transform: scale(1.1);
+    }
+    
+    .event-card-content {
+        padding: 25px;
+    }
+    
+    .event-card-date {
+        color: var(--medium-gray);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+    
+    .event-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .event-card p {
+        margin-bottom: 20px;
+        color: var(--dark-gray);
+    }
+    
+    /* Blog Section */
+    .blog {
+        background-color: var(--light-gray);
+    }
+    
+    .blog-carousel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+    }
+    
+    .blog-slide {
+        display: none;
+    }
+    
+    .blog-slide.active {
+        display: flex;
+        animation: fadeIn 0.8s ease;
+    }
+    
+    .blog-slide-img {
+        flex: 1;
+        min-height: 400px;
+    }
+    
+    .blog-slide-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .blog-slide-content {
+        flex: 1;
+        background-color: white;
+        padding: 40px;
+    }
+    
+    .blog-slide-content h3 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .blog-date {
+        display: inline-block;
+        color: var(--medium-gray);
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+    }
+    
+    .blog-author {
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+    }
+    
+    .blog-author-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 15px;
+    }
+    
+    .blog-author-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .blog-author-name {
+        font-weight: 600;
+    }
+    
+    .blog-author-title {
+        font-size: 0.9rem;
+        color: var(--medium-gray);
+    }
+    
+    /* Community Guidelines */
+    .guidelines {
+        background-color: white;
+    }
+    
+    .guidelines-content {
+        background-color: var(--black);
+        color: white;
+        padding: 60px;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .guidelines-content::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 80px;
+        height: 80px;
+        background-image: url('./assets/images/crown-logo.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.15;
+    }
+    
+    .guidelines-content h2 {
+        color: var(--primary-yellow);
+        position: relative;
+    }
+    
+    .guidelines-list {
+        list-style: none;
+        margin-top: 40px;
+        position: relative;
+    }
+    
+    .guidelines-list li {
+        margin-bottom: 25px;
+        padding-left: 30px;
+        position: relative;
+    }
+    
+    .guidelines-list li::before {
+        content: '✓';
+        color: var(--primary-yellow);
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+    }
+    
+    /* Join Section */
+    .join {
+        background-color: var(--primary-yellow);
+    }
+    
+    .join-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+    
+    .join-text h2 {
+        color: var(--black);
+    }
+    
+    .join-form {
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        border-color: var(--primary-yellow);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 222, 89, 0.3);
+    }
+    
+    .form-textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    /* Support Section */
+    .support {
+        background-color: var(--light-gray);
+    }
+    
+    .support-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    
+    .support-card {
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .support-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .support-icon {
+        width: 80px;
+        height: 80px;
+        background-color: var(--primary-yellow);
+        color: var(--black);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    .support-card h3 {
+        margin-bottom: 20px;
+    }
+    
+    .support-card p {
+        margin-bottom: 30px;
+        color: var(--dark-gray);
+    }
+    
+    /* Apparel Section */
+    .apparel {
+        background-color: white;
+        text-align: center;
+    }
+    
+    .coming-soon {
+        padding: 60px;
+        background-color: var(--black);
+        color: white;
+        border-radius: 10px;
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .coming-soon::after {
+        content: '';
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background-image: url('./assets/images/crown-logo.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.1;
+    }
+    
+    .coming-soon h2 {
+        color: var(--primary-yellow);
+        font-size: 3rem;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    
+    .coming-soon p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        position: relative;
+    }
+    
+    /* Footer */
+    footer {
+        background-color: var(--black);
+        color: white;
+        padding: 80px 0 30px;
+    }
+    
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 60px;
+        margin-bottom: 60px;
+    }
+    
+    .footer-logo {
+        margin-bottom: 20px;
+    }
+    
+    .footer-logo img {
+        height: 60px;
+    }
+    
+    .footer-about p {
+        color: #aaa;
+        margin-bottom: 30px;
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .social-link {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #333;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+        background-color: var(--primary-yellow);
+        color: var(--black);
+        transform: translateY(-3px);
+    }
+    
+    .footer-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: white;
+    }
+    
+    .footer-links {
+        list-style: none;
+    }
+    
+    .footer-links li {
+        margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+        color: #aaa;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+        color: var(--primary-yellow);
+    }
+    
+    .footer-contact li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        color: #aaa;
+    }
+    
+    .contact-icon {
+        margin-right: 15px;
+        color: var(--primary-yellow);
+    }
+    
+    .footer-bottom {
+        border-top: 1px solid #333;
+        padding-top: 30px;
+        text-align: center;
+        color: #777;
+        font-size: 0.9rem;
+    }
+    
+    .footer-bottom a {
+        color: #aaa;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-bottom a:hover {
+        color: var(--primary-yellow);
+    }
+    
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .modal.show {
+        display: block;
+        opacity: 1;
+    }
+    
+    .modal-content {
+        background-color: white;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 800px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transform: translateY(-50px);
+        transition: transform 0.3s ease;
+    }
+    
+    .modal.show .modal-content {
+        transform: translateY(0);
+    }
+    
+    .modal-close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+    
+    .modal-close:hover {
+        color: var(--black);
+    }
+    
+    .modal-body {
+        margin-top: 20px;
+    }
+    
+    .modal-body h3 {
+        color: var(--black);
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+    
+    .modal-body p, .modal-body ul {
+        margin-bottom: 15px;
+        color: var(--dark-gray);
+    }
+    
+    .modal-body ul {
+        padding-left: 20px;
+    }
+    
+    .modal-body ul li {
+        margin-bottom: 8px;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 1024px) {
         .hero {
-            background-color: var(--black);
-            color: white;
-            padding: 180px 0 100px;
-            position: relative;
-            overflow: hidden;
+            padding: 160px 0 80px;
         }
         
-        .hero .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
+        .hero-img {
+            width: 45%;
         }
         
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 650px;
-        }
-        
-        .hero h1 {
-            color: white;
-            margin-bottom: 30px;
-            line-height: 1.2;
-        }
-        
-        .hero h1 span {
-            color: var(--primary-yellow);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-        }
-        
-        .hero-logo {
-            position: relative;
-            z-index: 1;
-            margin-right: 50px;
-        }
-        
-        .floating-logo {
-            max-width: 200px;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-        
-        /* About Section */
-        .about {
-            background-color: var(--light-gray);
-        }
-        
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .about-text h2 {
-            margin-bottom: 30px;
-        }
-        
-        .about-text p {
-            margin-bottom: 25px;
-        }
-        
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        /* Events Section */
-        .events {
-            background-color: white;
-        }
-        
-        .event-carousel {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
-        }
-        
-        .event-slide {
-            display: none;
-            position: relative;
-        }
-        
-        .event-slide.active {
-            display: block;
-            animation: fadeIn 0.8s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .event-slide img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-        }
-        
-        .event-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            color: white;
-            padding: 30px;
-        }
-        
-        .event-info h3 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        
-        .event-date {
-            display: inline-block;
-            background-color: var(--primary-yellow);
-            color: var(--black);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        
-        .carousel-controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .carousel-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--medium-gray);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .carousel-dot.active {
-            background-color: var(--primary-yellow);
-            transform: scale(1.2);
-        }
-        
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-        
-        .event-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .event-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .event-card-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .event-card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.5s ease;
-        }
-        
-        .event-card:hover .event-card-img img {
-            transform: scale(1.1);
-        }
-        
-        .event-card-content {
-            padding: 25px;
-        }
-        
-        .event-card-date {
-            color: var(--medium-gray);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .event-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .event-card p {
-            margin-bottom: 20px;
-            color: var(--dark-gray);
-        }
-        
-        /* Blogs Section */
-        .blog {
-            background-color: var(--light-gray);
-        }
-        
-        .blog-carousel {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
-        }
-        
-        .blog-slide {
-            display: none;
-        }
-        
-        .blog-slide.active {
-            display: flex;
-            animation: fadeIn 0.8s ease;
-        }
-        
-        .blog-slide-img {
-            flex: 1;
-            min-height: 400px;
-        }
-        
-        .blog-slide-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .blog-slide-content {
-            flex: 1;
-            background-color: white;
-            padding: 40px;
-        }
-        
-        .blog-slide-content h3 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        
-        .blog-date {
-            display: inline-block;
-            color: var(--medium-gray);
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .blog-author {
-            display: flex;
-            align-items: center;
-            margin-top: 30px;
-        }
-        
-        .blog-author-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-right: 15px;
-        }
-        
-        .blog-author-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .blog-author-name {
-            font-weight: 600;
-        }
-        
-        .blog-author-title {
-            font-size: 0.9rem;
-            color: var(--medium-gray);
-        }
-        
-        /* Community Guidelines */
-        .guidelines {
-            background-color: white;
-        }
-        
-        .guidelines-content {
-            background-color: var(--black);
-            color: white;
-            padding: 60px;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .guidelines-content::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            background-image: url('./assets/images/crown-logo.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-        }
-        
-        .guidelines-content h2 {
-            color: var(--primary-yellow);
-            position: relative;
-        }
-        
-        .guidelines-list {
-            list-style: none;
-            margin-top: 40px;
-            position: relative;
-        }
-        
-        .guidelines-list li {
-            margin-bottom: 25px;
-            padding-left: 30px;
-            position: relative;
-        }
-        
-        .guidelines-list li::before {
-            content: '✓';
-            color: var(--primary-yellow);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-        
-        /* Join Section */
-        .join {
-            background-color: var(--primary-yellow);
-        }
-        
+        .about-content,
         .join-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .join-text h2 {
-            color: var(--black);
-        }
-        
-        .join-form {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .form-input,
-        .form-select,
-        .form-textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
-            border-color: var(--primary-yellow);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 222, 89, 0.3);
-        }
-        
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        /* Support Section */
-        .support {
-            background-color: var(--light-gray);
-        }
-        
-        .support-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        
-        .support-card {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .support-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .support-icon {
-            width: 80px;
-            height: 80px;
-            background-color: var(--primary-yellow);
-            color: var(--black);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        
-        .support-card h3 {
-            margin-bottom: 20px;
-        }
-        
-        .support-card p {
-            margin-bottom: 30px;
-            color: var(--dark-gray);
-        }
-        
-        /* Apparel Section */
-        .apparel {
-            background-color: white;
-            text-align: center;
-        }
-        
-        .coming-soon {
-            padding: 60px;
-            background-color: var(--black);
-            color: white;
-            border-radius: 10px;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .coming-soon::after {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background-image: url('./assets/images/crown-logo.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.1;
-        }
-        
-        .coming-soon h2 {
-            color: var(--primary-yellow);
-            font-size: 3rem;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .coming-soon p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            position: relative;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--black);
-            color: white;
-            padding: 80px 0 30px;
+            grid-template-columns: 1fr;
+            gap: 40px;
         }
         
         .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 60px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .hero {
+            padding: 140px 0 60px;
         }
         
-        .footer-logo {
-            margin-bottom: 20px;
+        .hero .container {
+            flex-direction: column;
         }
         
-        .footer-logo img {
-            height: 60px;
+        .hero h1 {
+            font-size: 2.5rem;
         }
         
-        .footer-about p {
-            color: #aaa;
-            margin-bottom: 30px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #333;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            background-color: var(--primary-yellow);
-            color: var(--black);
-            transform: translateY(-3px);
-        }
-        
-        .footer-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: white;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary-yellow);
-        }
-        
-        .footer-contact li {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            color: #aaa;
-        }
-        
-        .contact-icon {
-            margin-right: 15px;
-            color: var(--primary-yellow);
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid #333;
-            padding-top: 30px;
+        .hero-logo {
+            margin: 40px auto 0;
             text-align: center;
-            color: #777;
-            font-size: 0.9rem;
         }
         
-        .footer-bottom a {
-            color: #aaa;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .floating-logo {
+            max-width: 150px;
         }
         
-        .footer-bottom a:hover {
-            color: var(--primary-yellow);
+        .section {
+            padding: 60px 0;
         }
         
-        /* Media Queries */
-        @media (max-width: 1024px) {
-            .hero {
-                padding: 160px 0 80px;
-            }
-            
-            .hero-img {
-                width: 45%;
-            }
-            
-            .about-content,
-            .join-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 40px;
-            }
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background-color: var(--black);
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 100px;
+            transition: all 0.4s ease;
         }
         
-        @media (max-width: 768px) {
-            .hero {
-                padding: 140px 0 60px;
-            }
-            
-            .hero .container {
-                flex-direction: column;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-logo {
-                margin: 40px auto 0;
-                text-align: center;
-            }
-            
-            .floating-logo {
-                max-width: 150px;
-            }
-            
-            .section {
-                padding: 60px 0;
-            }
-            
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background-color: var(--black);
-                flex-direction: column;
-                justify-content: flex-start;
-                padding-top: 100px;
-                transition: all 0.4s ease;
-            }
-            
-            .nav-menu.active {
-                right: 0;
-            }
-            
-            nav ul li {
-                margin: 0 0 25px;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .nav-toggle {
-                display: block;
-            }
-            
-            .blog-slide {
-                flex-direction: column;
-            }
-            
-            .support-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
+        .nav-menu.active {
+            right: 0;
         }
         
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            .event-info h3 {
-                font-size: 1.5rem;
-            }
-            
-            .guidelines-content {
-                padding: 40px 30px;
-            }
-            
-            .events-grid {
-                grid-template-columns: 1fr;
-            }
+        nav ul li {
+            margin: 0 0 25px;
+            width: 100%;
+            text-align: center;
         }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        
+        .nav-toggle {
+            display: block;
+        }
+        
+        .blog-slide {
+            flex-direction: column;
+        }
+        
+        .support-options {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-content {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        h1 {
+            font-size: 2.2rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+        }
+        
+        .event-info h3 {
+            font-size: 1.5rem;
+        }
+        
+        .guidelines-content {
+            padding: 40px 30px;
+        }
+        
+        .events-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header id="header">
-        <div class="container header-container">
-            <div class="logo">
-                <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo" id="header-logo">
+<!-- Header -->
+<header id="header">
+    <div class="container header-container">
+        <div class="logo">
+            <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo" id="header-logo">
+        </div>
+        <button class="nav-toggle" id="nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#blogs">Blogs</a></li>
+                <li><a href="#guidelines">Guidelines</a></li>
+                <li><a href="#join">Join Us</a></li>
+                <li><a href="#apparel">Apparel</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Strength in <span>Identity</span>, Empowering Through <span>Unity</span></h1>
+            <p>MPower represents Black and minority professional masculine-presenting women and FTM individuals across various industries, creating a space where authenticity, strength, and unity thrive.</p>
+            <a href="#join" class="btn">Join Our Community</a>
+        </div>
+        <div class="hero-logo">
+            <img src="./assets/images/crown-logo.png" alt="MPower Crown Logo" class="floating-logo">
+        </div>
+    </div>
+</section>
+
+<!-- Support Section -->
+<section class="section support" id="support">
+    <div class="container">
+        <h2 class="section-title">Support MPower</h2>
+        
+        <div class="support-options">
+            <div class="support-card">
+                <div class="support-icon">S</div>
+                <h3>Sponsor an Event</h3>
+                <p>Partner with MPower to sponsor our networking events, educational panels, business expos, and community initiatives.</p>
+                <p>Your sponsorship helps us create meaningful experiences that empower our members and strengthen our community.</p>
+                <a href="#" class="btn">Become a Sponsor</a>
             </div>
-            <button class="nav-toggle" id="nav-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-                <ul class="nav-menu" id="nav-menu">
+            
+            <div class="support-card">
+                <div class="support-icon">D</div>
+                <h3>Make a Donation</h3>
+                <p>Support our mission by making a donation to MPower. Your contribution helps fund our programs, events, and initiatives.</p>
+                <p>Every donation makes a difference in creating opportunities for our members and community.</p>
+                <a href="#" class="btn">Donate Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Apparel Section -->
+<section class="section apparel" id="apparel">
+    <div class="container">
+        <h2 class="section-title">MPower Apparel</h2>
+        
+        <div class="coming-soon">
+            <h2>Coming Soon</h2>
+            <p>Our exclusive line of MPower branded apparel is currently in development. Stay tuned for our official launch where you'll be able to represent MPower with pride.</p>
+            <a href="#" class="btn">Get Notified</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo">
+                </div>
+                <p>MPower is dedicated to creating a supportive space where Black and minority professional masculine-presenting women and FTM individuals can thrive through authentic connection and unity.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-nav">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#events">Events</a></li>
-                    <li><a href="#blog">Blogs</a></li>
+                    <li><a href="#blogs">Blogs</a></li>
                     <li><a href="#guidelines">Guidelines</a></li>
                     <li><a href="#join">Join Us</a></li>
                     <li><a href="#apparel">Apparel</a></li>
                 </ul>
-            </nav>
+            </div>
+            
+            <div class="footer-legal">
+                <h3 class="footer-title">Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#terms" id="terms">Terms of Service</a></li>
+                    <li><a href="#privacy" id="privacy">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3 class="footer-title">Contact Us</h3>
+                <ul class="footer-links">
+                    <li>
+                        <span class="contact-icon"><i class="far fa-envelope"></i></span>
+                        info@mascpower.com
+                    </li>
+                    <li>
+                        <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+                        Atlanta, GA
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 MPower. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Strength in <span>Identity</span>, Empowering Through <span>Unity</span></h1>
-                <p>MPower represents Black and minority professional masculine-presenting women and FTM individuals across various industries, creating a space where authenticity, strength, and unity thrive.</p>
-                <a href="#join" class="btn">Join Our Community</a>
-            </div>
-            <div class="hero-logo">
-                <img src="./assets/images/crown-logo.png" alt="MPower Crown Logo" class="floating-logo">
-            </div>
-        </div>
-    </section>
-    
-    <!-- Support Section -->
-    <section class="section support" id="support">
-        <div class="container">
-            <h2 class="section-title">Support MPower</h2>
+<!-- Terms Modal -->
+<div id="terms-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Terms of Service</h2>
+        <div class="modal-body">
+            <h3>1. Introduction</h3>
+            <p>These Website Terms and Conditions ("Terms") govern your access to and use of the MPower website, services, and content (collectively, the "Service"). By accessing or using the Service, you agree to be bound by these Terms. If you do not agree to these Terms, please do not access or use the Service.</p>
             
-            <div class="support-options">
-                <div class="support-card">
-                    <div class="support-icon">S</div>
-                    <h3>Sponsor an Event</h3>
-                    <p>Partner with MPower to sponsor our networking events, educational panels, business expos, and community initiatives.</p>
-                    <p>Your sponsorship helps us create meaningful experiences that empower our members and strengthen our community.</p>
-                    <a href="#" class="btn">Become a Sponsor</a>
-                </div>
-                
-                <div class="support-card">
-                    <div class="support-icon">D</div>
-                    <h3>Make a Donation</h3>
-                    <p>Support our mission by making a donation to MPower. Your contribution helps fund our programs, events, and initiatives.</p>
-                    <p>Every donation makes a difference in creating opportunities for our members and community.</p>
-                    <a href="#" class="btn">Donate Now</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Apparel Section -->
-    <section class="section apparel" id="apparel">
-        <div class="container">
-            <h2 class="section-title">MPower Apparel</h2>
+            <h3>2. Definitions</h3>
+            <p>"MPower," "we," "us," and "our" refer to MPower organization.</p>
+            <p>"User," "you," and "your" refer to the individual or entity accessing or using the Service.</p>
+            <p>"Content" refers to any information, text, graphics, photos, or other materials uploaded, downloaded, or appearing on the Service.</p>
             
-            <div class="coming-soon">
-                <h2>Coming Soon</h2>
-                <p>Our exclusive line of MPower branded apparel is currently in development. Stay tuned for our official launch where you'll be able to represent MPower with pride.</p>
-                <a href="#" class="btn">Get Notified</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo">
-                    </div>
-                    <p>MPower is dedicated to creating a supportive space where Black and minority professional masculine-presenting women and FTM individuals can thrive through authentic connection and unity.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-nav">
-                    <h3 class="footer-title">Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="#blog">Blogs</a></li>
-                        <li><a href="#guidelines">Guidelines</a></li>
-                        <li><a href="#join">Join Us</a></li>
-                        <li><a href="#apparel">Apparel</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-legal">
-                    <h3 class="footer-title">Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#terms" id="terms">Terms of Service</a></li>
-                        <li><a href="#privacy" id="privacy">Privacy Policy</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">Disclaimer</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-contact">
-                    <h3 class="footer-title">Contact Us</h3>
-                    <ul class="footer-links">
-                        <li>
-                            <span class="contact-icon"><i class="far fa-envelope"></i></span>
-                            info@mascpower.com
-                        </li>
-                        <li>
-                            <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
-                            Atlanta, GA
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <h3>3. User Accounts</h3>
+            <p>When you create an account with us, you must provide accurate, complete, and current information. You are responsible for safeguarding your account credentials and for any activities or actions under your account.</p>
+            <p>We reserve the right to disable any user account if we believe you have violated these Terms.</p>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 MPower. All Rights Reserved.</p>
-            </div>
+            <h3>4. Intellectual Property Rights</h3>
+            <p>The Service and its original content, features, and functionality are owned by MPower and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+            <p>You may not copy, modify, create derivative works of, publicly display, publicly perform, republish, or transmit any of the material on our Service without prior written consent.</p>
+            
+            <h3>5. User Content</h3>
+            <p>By submitting content to the Service, you grant MPower a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, adapt, publish, translate, and distribute your content in any existing or future media formats.</p>
+            <p>You represent and warrant that you own or have the necessary rights to the content you submit and that the content does not violate the rights of any third party.</p>
+            
+            <h3>6. Prohibited Activities</h3>
+            <p>You may not engage in any of the following activities:</p>
+            <ul>
+                <li>Violating laws or regulations</li>
+                <li>Infringing on intellectual property rights</li>
+                <li>Attempting to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the Service</li>
+                <li>Taking any action that imposes an unreasonable or disproportionately large load on our infrastructure</li>
+                <li>Uploading invalid data, viruses, worms, or other software agents through the Service</li>
+                <li>Collecting or harvesting any personally identifiable information from the Service</li>
+                <li>Using the Service for any commercial solicitation purposes without our consent</li>
+                <li>Impersonating another person or otherwise misrepresenting your affiliation with a person or entity</li>
+            </ul>
+            
+            <h3>7. Termination</h3>
+            <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason, including breach of these Terms.</p>
+            <p>Upon termination, your right to use the Service will immediately cease.</p>
+            
+            <h3>8. Limitation of Liability</h3>
+            <p>In no event shall MPower, its officers, directors, employees, or agents be liable for any indirect, incidental, special, consequential, or punitive damages whatsoever arising out of or in connection with your use of the Service.</p>
+            
+            <h3>9. Indemnification</h3>
+            <p>You agree to defend, indemnify, and hold harmless MPower and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses arising out of or in any way connected with your access to or use of the Service.</p>
+            
+            <h3>10. Changes to Terms</h3>
+            <p>We reserve the right to modify these Terms at any time. We will provide notice of significant changes by posting the new Terms on the Service and updating the "Last Updated" date.</p>
+            <p>Your continued use of the Service after such modifications constitutes your acknowledgment of the modified Terms and agreement to abide by them.</p>
+            
+            <h3>11. Governing Law</h3>
+            <p>These Terms shall be governed by the laws of the State of Georgia, without regard to its conflict of law provisions.</p>
+            
+            <h3>12. Contact Information</h3>
+            <p>If you have any questions about these Terms, please contact us at info@mascpower.com.</p>
+            
+            <p><strong>Last Updated:</strong> April 11, 2025</p>
         </div>
-    </footer>
-    
-    <!-- Terms Modal -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h2>Terms of Service</h2>
-            <div class="modal-body">
-                <h3>1. Introduction</h3>
-                <p>These Website Terms and Conditions ("Terms") govern your access to and use of the MPower website, services, and content (collectively, the "Service"). By accessing or using the Service, you agree to be bound by these Terms. If you do not agree to these Terms, please do not access or use the Service.</p>
-                
-                <h3>2. Definitions</h3>
-                <p>"MPower," "we," "us," and "our" refer to MPower organization.</p>
-                <p>"User," "you," and "your" refer to the individual or entity accessing or using the Service.</p>
-                <p>"Content" refers to any information, text, graphics, photos, or other materials uploaded, downloaded, or appearing on the Service.</p>
-                
-                <h3>3. User Accounts</h3>
-                <p>When you create an account with us, you must provide accurate, complete, and current information. You are responsible for safeguarding your account credentials and for any activities or actions under your account.</p>
-                <p>We reserve the right to disable any user account if we believe you have violated these Terms.</p>
-                
-                <h3>4. Intellectual Property Rights</h3>
-                <p>The Service and its original content, features, and functionality are owned by MPower and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
-                <p>You may not copy, modify, create derivative works of, publicly display, publicly perform, republish, or transmit any of the material on our Service without prior written consent.</p>
-                
-                <h3>5. User Content</h3>
-                <p>By submitting content to the Service, you grant MPower a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, adapt, publish, translate, and distribute your content in any existing or future media formats.</p>
-                <p>You represent and warrant that you own or have the necessary rights to the content you submit and that the content does not violate the rights of any third party.</p>
-                
-                <h3>6. Prohibited Activities</h3>
-                <p>You may not engage in any of the following activities:</p>
-                <ul>
-                    <li>Violating laws or regulations</li>
-                    <li>Infringing on intellectual property rights</li>
-                    <li>Attempting to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the Service</li>
-                    <li>Taking any action that imposes an unreasonable or disproportionately large load on our infrastructure</li>
-                    <li>Uploading invalid data, viruses, worms, or other software agents through the Service</li>
-                    <li>Collecting or harvesting any personally identifiable information from the Service</li>
-                    <li>Using the Service for any commercial solicitation purposes without our consent</li>
-                    <li>Impersonating another person or otherwise misrepresenting your affiliation with a person or entity</li>
-                </ul>
-                
-                <h3>7. Termination</h3>
-                <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason, including breach of these Terms.</p>
-                <p>Upon termination, your right to use the Service will immediately cease.</p>
-                
-                <h3>8. Limitation of Liability</h3>
-                <p>In no event shall MPower, its officers, directors, employees, or agents be liable for any indirect, incidental, special, consequential, or punitive damages whatsoever arising out of or in connection with your use of the Service.</p>
-                
-                <h3>9. Indemnification</h3>
-                <p>You agree to defend, indemnify, and hold harmless MPower and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses arising out of or in any way connected with your access to or use of the Service.</p>
-                
-                <h3>10. Changes to Terms</h3>
-                <p>We reserve the right to modify these Terms at any time. We will provide notice of significant changes by posting the new Terms on the Service and updating the "Last Updated" date.</p>
-                <p>Your continued use of the Service after such modifications constitutes your acknowledgment of the modified Terms and agreement to abide by them.</p>
-                
-                <h3>11. Governing Law</h3>
-                <p>These Terms shall be governed by the laws of the State of Georgia, without regard to its conflict of law provisions.</p>
-                
-                <h3>12. Contact Information</h3>
-                <p>If you have any questions about these Terms, please contact us at info@mascpower.com.</p>
-                
-                <p><strong>Last Updated:</strong> April 11, 2025</p>
+    </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacy-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Privacy Policy</h2>
+        <div class="modal-body">
+            <h3>1. Introduction</h3>
+            <p>MPower ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the "Site").</p>
+            <p>Please read this Privacy Policy carefully. By accessing or using the Site, you acknowledge that you have read, understood, and agree to be bound by all the terms of this Privacy Policy.</p>
+            
+            <h3>2. Information We Collect</h3>
+            <p><strong>Personal Data.</strong> We collect personal information that you voluntarily provide to us when you register on the Site, express an interest in obtaining information about us or our products and services, participate in activities on the Site, or otherwise contact us. The personal information we collect may include:</p>
+            <ul>
+                <li>Name, email address, phone number, and other contact information</li>
+                <li>Professional information such as occupation, industry, and employer</li>
+                <li>Membership application responses</li>
+                <li>Payment information for membership dues, donations, or purchases</li>
+                <li>Social media profiles and information</li>
+            </ul>
+            
+            <p><strong>Automatically Collected Information.</strong> We may automatically collect certain information when you visit, use, or navigate the Site. This information does not reveal your specific identity but may include:</p>
+            <ul>
+                <li>Device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, and information about how and when you use our Site</li>
+                <li>Cookies and similar technologies</li>
+            </ul>
+            
+            <h3>3. How We Use Your Information</h3>
+            <p>We use personal information collected via our Site for a variety of business purposes, including:</p>
+            <ul>
+                <li>To facilitate account creation and authentication</li>
+                <li>To process membership applications and maintain member records</li>
+                <li>To communicate with you about events, news, and organizational updates</li>
+                <li>To process payments for membership dues, donations, or merchandise</li>
+                <li>To organize and manage events and initiatives</li>
+                <li>To respond to inquiries and provide customer support</li>
+                <li>To improve our website, products, and services</li>
+                <li>To protect our legal rights and comply with our legal obligations</li>
+            </ul>
+            
+            <h3>4. Disclosure of Your Information</h3>
+            <p>We may share information in the following situations:</p>
+            <ul>
+                <li><strong>With Service Providers.</strong> We may share your information with third-party vendors, service providers, contractors, or agents who perform services for us or on our behalf.</li>
+                <li><strong>With Business Partners.</strong> We may share your information with our business partners to offer you certain products, services, or promotions.</li>
+                <li><strong>With Your Consent.</strong> We may disclose your personal information for any other purpose with your consent.</li>
+                <li><strong>Legal Requirements.</strong> We may disclose your information where we are legally required to do so.</li>
+            </ul>
+            
+            <h3>5. Security of Your Information</h3>
+            <p>We use administrative, technical, and physical security measures to help protect your personal information from unauthorized access, use, or disclosure. However, no security system is impenetrable, and we cannot guarantee the security of our systems 100%.</p>
+            
+            <h3>6. Cookie Policy</h3>
+            <p>We use cookies and similar tracking technologies to track activity on our Site and store certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
+            
+            <h3>7. Your Privacy Rights</h3>
+            <p>Depending on your location, you may have certain rights regarding your personal information, such as the right to:</p>
+            <ul>
+                <li>Access your personal information</li>
+                <li>Correct inaccurate personal information</li>
+                <li>Request deletion of your personal information</li>
+                <li>Object to our use and processing of your personal information</li>
+                <li>Request that we limit our use and processing of your personal information</li>
+                <li>Request portability of your personal information</li>
+            </ul>
+            
+            <h3>8. Data Retention</h3>
+            <p>We will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our agreements.</p>
+            
+            <h3>9. Children's Privacy</h3>
+            <p>Our Site is not intended for individuals under the age of 18. We do not knowingly collect personal information from children under 18.</p>
+            
+            <h3>10. Changes to This Privacy Policy</h3>
+            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+            
+            <h3>11. Contact Us</h3>
+            <p>If you have questions or concerns about this Privacy Policy or our practices, please contact us at info@mascpower.com.</p>
+            
+            <p><strong>Last Updated:</strong> April 11, 2025</p>
+        </div>
+    </div>
+</div>
+
+<!-- About Section -->
+<section class="section about" id="about">
+    <div class="container">
+        <h2 class="section-title">About MPower</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Our Mission</h2>
+                <p>MPower is a non-organization that represents Black and minority professional masculine-presenting (lesbian) women and female-to-male (FTM) transitioned individuals who are either gainfully employed and/or self-employed throughout various industries.</p>
+                <p>Our purpose is to bring these like-minded and spirited individuals together to inspire, uplift, and motivate one another while still having fun. Our mission is to create a supportive space where authenticity, strength, and unity thrive.</p>
+                <p>The organization is structured like the President's cabinet. We have the President, Tip White, who is the founder. In her Cabinet are the heads of each committee: Technology, Marketing, Treasury, Media, Events, and more. Each committee is responsible for heading their own projects, with cross-committee endeavors to accomplish our collective goals.</p>
+                <a href="#join" class="btn btn-black">Become a Member</a>
+            </div>
+            <div class="about-img">
+                <img src="./assets/images/mpower-community.jpg" alt="MPower Community">
             </div>
         </div>
     </div>
-    
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h2>Privacy Policy</h2>
-            <div class="modal-body">
-                <h3>1. Introduction</h3>
-                <p>MPower ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the "Site").</p>
-                <p>Please read this Privacy Policy carefully. By accessing or using the Site, you acknowledge that you have read, understood, and agree to be bound by all the terms of this Privacy Policy.</p>
-                
-                <h3>2. Information We Collect</h3>
-                <p><strong>Personal Data.</strong> We collect personal information that you voluntarily provide to us when you register on the Site, express an interest in obtaining information about us or our products and services, participate in activities on the Site, or otherwise contact us. The personal information we collect may include:</p>
-                <ul>
-                    <li>Name, email address, phone number, and other contact information</li>
-                    <li>Professional information such as occupation, industry, and employer</li>
-                    <li>Membership application responses</li>
-                    <li>Payment information for membership dues, donations, or purchases</li>
-                    <li>Social media profiles and information</li>
-                </ul>
-                
-                <p><strong>Automatically Collected Information.</strong> We may automatically collect certain information when you visit, use, or navigate the Site. This information does not reveal your specific identity but may include:</p>
-                <ul>
-                    <li>Device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, and information about how and when you use our Site</li>
-                    <li>Cookies and similar technologies</li>
-                </ul>
-                
-                <h3>3. How We Use Your Information</h3>
-                <p>We use personal information collected via our Site for a variety of business purposes, including:</p>
-                <ul>
-                    <li>To facilitate account creation and authentication</li>
-                    <li>To process membership applications and maintain member records</li>
-                    <li>To communicate with you about events, news, and organizational updates</li>
-                    <li>To process payments for membership dues, donations, or merchandise</li>
-                    <li>To organize and manage events and initiatives</li>
-                    <li>To respond to inquiries and provide customer support</li>
-                    <li>To improve our website, products, and services</li>
-                    <li>To protect our legal rights and comply with our legal obligations</li>
-                </ul>
-                
-                <h3>4. Disclosure of Your Information</h3>
-                <p>We may share information in the following situations:</p>
-                <ul>
-                    <li><strong>With Service Providers.</strong> We may share your information with third-party vendors, service providers, contractors, or agents who perform services for us or on our behalf.</li>
-                    <li><strong>With Business Partners.</strong> We may share your information with our business partners to offer you certain products, services, or promotions.</li>
-                    <li><strong>With Your Consent.</strong> We may disclose your personal information for any other purpose with your consent.</li>
-                    <li><strong>Legal Requirements.</strong> We may disclose your information where we are legally required to do so.</li>
-                </ul>
-                
-                <h3>5. Security of Your Information</h3>
-                <p>We use administrative, technical, and physical security measures to help protect your personal information from unauthorized access, use, or disclosure. However, no security system is impenetrable, and we cannot guarantee the security of our systems 100%.</p>
-                
-                <h3>6. Cookie Policy</h3>
-                <p>We use cookies and similar tracking technologies to track activity on our Site and store certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
-                
-                <h3>7. Your Privacy Rights</h3>
-                <p>Depending on your location, you may have certain rights regarding your personal information, such as the right to:</p>
-                <ul>
-                    <li>Access your personal information</li>
-                    <li>Correct inaccurate personal information</li>
-                    <li>Request deletion of your personal information</li>
-                    <li>Object to our use and processing of your personal information</li>
-                    <li>Request that we limit our use and processing of your personal information</li>
-                    <li>Request portability of your personal information</li>
-                </ul>
-                
-                <h3>8. Data Retention</h3>
-                <p>We will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our agreements.</p>
-                
-                <h3>9. Children's Privacy</h3>
-                <p>Our Site is not intended for individuals under the age of 18. We do not knowingly collect personal information from children under 18.</p>
-                
-                <h3>10. Changes to This Privacy Policy</h3>
-                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
-                
-                <h3>11. Contact Us</h3>
-                <p>If you have questions or concerns about this Privacy Policy or our practices, please contact us at info@mascpower.com.</p>
-                
-                <p><strong>Last Updated:</strong> April 11, 2025</p>
+</section>
+
+<!-- Events Section -->
+<section class="section events" id="events">
+    <div class="container">
+        <h2 class="section-title">Events & Initiatives</h2>
+        
+        <div class="event-carousel">
+            <div class="event-slide active">
+                <img src="./assets/images/events/networking-mixer.jpg" alt="Networking Mixer Event">
+                <div class="event-info">
+                    <span class="event-date">June 25, 2025</span>
+                    <h3>Professional Networking Mixer</h3>
+                    <p>Join us for an evening of networking, connection, and community building with professionals across various industries.</p>
+                </div>
+            </div>
+            <div class="event-slide">
+                <img src="./assets/images/events/business-expo.jpg" alt="Business Expo">
+                <div class="event-info">
+                    <span class="event-date">August 12-14, 2025</span>
+                    <h3>Annual Business Expo</h3>
+                    <p>Showcasing our members' businesses and entrepreneurial ventures with opportunities for collaboration and growth.</p>
+                </div>
+            </div>
+            <div class="event-slide">
+                <img src="./assets/images/events/educational-panel.jpg" alt="Educational Panel">
+                <div class="event-info">
+                    <span class="event-date">July 8, 2025</span>
+                    <h3>Navigating Professional Spaces Panel</h3>
+                    <p>An educational discussion with industry leaders on creating authentic presence in professional environments.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="carousel-controls">
+            <span class="carousel-dot active" data-slide="0"></span>
+            <span class="carousel-dot" data-slide="1"></span>
+            <span class="carousel-dot" data-slide="2"></span>
+        </div>
+        
+        <h3 style="text-align: center; margin-top: 60px;">Past Events</h3>
+        
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-card-img">
+                    <img src="./assets/images/events/volunteer-event.jpg" alt="Volunteer Opportunity">
+                </div>
+                <div class="event-card-content">
+                    <span class="event-card-date">March 15, 2025</span>
+                    <h3>Community Service Project</h3>
+                    <p>Members volunteered at local LGBTQ+ youth center, providing mentorship and support.</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-card-img">
+                    <img src="./assets/images/events/investment-workshop.jpg" alt="Investment Workshop">
+                </div>
+                <div class="event-card-content">
+                    <span class="event-card-date">February 22, 2025</span>
+                    <h3>Investment & Business Development Workshop</h3>
+                    <p>Financial experts shared strategies for business growth and wealth building.</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-card-img">
+                    <img src="./assets/images/events/retreat.jpg" alt="Annual Retreat">
+                </div>
+                <div class="event-card-content">
+                    <span class="event-card-date">January 18-20, 2025</span>
+                    <h3>Annual Leadership Retreat</h3>
+                    <p>A weekend of reflection, planning, and bonding for MPower's leadership team and committee heads.</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="#" class="btn btn-black">View All Events</a>
+        </div>
+    </div>
+</section>
+
+<!-- Blog/Vlog Section -->
+<section class="section blog" id="blogs">
+    <div class="container">
+        <h2 class="section-title">Blogs & Vlogs</h2>
+        
+        <div class="blog-carousel">
+            <div class="blog-slide active" style="display: flex;">
+                <div class="blog-slide-img">
+                    <img src="./assets/images/blog/authentic-self.jpg" alt="Blog Post">
+                </div>
+                <div class="blog-slide-content">
+                    <span class="blog-date">April 5, 2025</span>
+                    <h3>Navigating Corporate America as Your Authentic Self</h3>
+                    <p>In the corridors of corporate America, the journey toward authentic self-expression has often been fraught with challenges for Black and minority masculine-presenting women and FTM individuals. The traditional corporate landscape was not designed with our unique experiences in mind, yet increasingly, we are not only finding our place but transforming these spaces through our presence.</p>
+                    <p>As Audre Lorde powerfully stated, "If I didn't define myself for myself, I would be crunched into other people's fantasies for me and eaten alive."</p>
+                    <a href="./blog/navigating-corporate-america.html" class="btn">Read More</a>
+                    
+                    <div class="blog-author">
+                        <div class="blog-author-img">
+                            <img src="./assets/images/team/nate.jpg" alt="Author">
+                        </div>
+                        <div>
+                            <div class="blog-author-name">Nate Holder</div>
+                            <div class="blog-author-title">Technology Committee Head</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-slide" style="display: flex;">
+                <div class="blog-slide-img">
+                    <img src="./assets/images/blog/wealth-building.jpg" alt="Vlog Post">
+                </div>
+                <div class="blog-slide-content">
+                    <span class="blog-date">March 22, 2025</span>
+                    <h3>Building Wealth in Our Communities</h3>
+                    <p>This vlog series explores financial literacy, investment strategies, and wealth-building specifically tailored for our community members.</p>
+                    <p>Learn practical tips for entrepreneurship, real estate investment, and creating generational wealth from experts within our community.</p>
+                    <a href="#" class="btn">Watch Video</a>
+                    
+                    <div class="blog-author">
+                        <div class="blog-author-img">
+                            <img src="./assets/images/team/marcus.jpg" alt="Author">
+                        </div>
+                        <div>
+                            <div class="blog-author-name">Marcus Johnson</div>
+                            <div class="blog-author-title">Treasury Committee Head</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-slide" style="display: flex;">
+                <div class="blog-slide-img">
+                    <img src="./assets/images/blog/mentorship.jpg" alt="Blog Post">
+                </div>
+                <div class="blog-slide-content">
+                    <span class="blog-date">March 10, 2025</span>
+                    <h3>The Power of Mentorship</h3>
+                    <p>Highlighting MPower's mentorship program and the transformative impact it's having on both mentors and mentees across various professional fields.</p>
+                    <p>Through structured guidance and authentic connection, we're creating pathways to success for the next generation of leaders.</p>
+                    <a href="#" class="btn">Read More</a>
+                    
+                    <div class="blog-author">
+                        <div class="blog-author-img">
+                            <img src="./assets/images/team/alex.jpg" alt="Author">
+                        </div>
+                        <div>
+                            <div class="blog-author-name">Alex Rivera</div>
+                            <div class="blog-author-title">Media Committee Head</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="carousel-controls">
+            <span class="carousel-dot active" data-slide="0"></span>
+            <span class="carousel-dot" data-slide="1"></span>
+            <span class="carousel-dot" data-slide="2"></span>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="#" class="btn btn-black">View All Posts</a>
+        </div>
+    </div>
+</section>
+
+<!-- Community Guidelines -->
+<section class="section guidelines" id="guidelines">
+    <div class="container">
+        <h2 class="section-title">Our Community Guidelines</h2>
+        
+        <div class="guidelines-content">
+            <h2>Community Guidelines</h2>
+            <p>At MPower, we believe in creating a space where all members can thrive authentically. These guidelines help us maintain our community's integrity and purpose.</p>
+            
+            <ul class="guidelines-list">
+                <li><strong>Move with intention, respect, and power.</strong> We represent ourselves with dignity and purpose in all interactions.</li>
+                <li><strong>Stay active and engaged — online and in person.</strong> Your presence and participation strengthen our community.</li>
+                <li><strong>Uplift each other: celebrate wins, offer support, show up.</strong> We rise by lifting others and celebrating our collective achievements.</li>
+                <li><strong>Respect shared space, especially during guest events.</strong> Allow room for everyone to connect and grow.</li>
+                <li><strong>Lead with love, be accountable, and always come as you are.</strong> Authenticity is our foundation.</li>
+                <li><strong>Inactive members may be removed to preserve the group's integrity and energy.</strong> Our community thrives through active participation.</li>
+            </ul>
+            
+            <a href="#" class="btn" style="margin-top: 30px;">View Full By-Laws</a>
+        </div>
+    </div>
+</section>
+
+<!-- Join Section -->
+<section class="section join" id="join">
+    <div class="container">
+        <h2 class="section-title">Join MPower</h2>
+        
+        <div class="join-content">
+            <div class="join-text">
+                <h2>Become a Member</h2>
+                <p>MPower is an exclusive, members-only organization dedicated to supporting Black and minority professional masculine-presenting women and FTM individuals.</p>
+                <p>Our application process ensures we maintain a community of like-minded individuals committed to our mission of strength, authenticity, and unity.</p>
+                <p>Members pay dues that support our events, initiatives, and community programs, creating value for all who participate.</p>
+                <p>Complete the application form to begin the screening process. Our team will review your application and contact you for the next steps.</p>
+            </div>
+            
+            <div class="join-form">
+                <form id="application-form">
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profession" class="form-label">Profession/Industry</label>
+                        <input type="text" id="profession" name="profession" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location" class="form-label">City, State</label>
+                        <input type="text" id="location" name="location" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="referral" class="form-label">How did you hear about MPower?</label>
+                        <select id="referral" name="referral" class="form-select" required>
+                            <option value="">Select an option</option>
+                            <option value="current-member">Current Member</option>
+                            <option value="event">MPower Event</option>
+                            <option value="social-media">Social Media</option>
+                            <option value="website">Website</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="why-join" class="form-label">Why do you want to join MPower?</label>
+                        <textarea id="why-join" name="why-join" class="form-textarea" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" required> I agree to the <a href="#terms">Terms and Conditions</a> and <a href="#privacy">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-black" style="width: 100%;">Submit Application</button>
+                </form>
             </div>
         </div>
     </div>
+</section>
+
+<!-- Support Section -->
+<section class="section support" id="support">
+    <div class="container">
+        <h2 class="section-title">Support MPower</h2>
+        
+        <div class="support-options">
+            <div class="support-card">
+                <div class="support-icon">S</div>
+                <h3>Sponsor an Event</h3>
+                <p>Partner with MPower to sponsor our networking events, educational panels, business expos, and community initiatives.</p>
+                <p>Your sponsorship helps us create meaningful experiences that empower our members and strengthen our community.</p>
+                <a href="#" class="btn">Become a Sponsor</a>
+            </div>
+            
+            <div class="support-card">
+                <div class="support-icon">D</div>
+                <h3>Make a Donation</h3>
+                <p>Support our mission by making a donation to MPower. Your contribution helps fund our programs, events, and initiatives.</p>
+                <p>Every donation makes a difference in creating opportunities for our members and community.</p>
+                <a href="#" class="btn">Donate Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Apparel Section -->
+<section class="section apparel" id="apparel">
+    <div class="container">
+        <h2 class="section-title">MPower Apparel</h2>
+        
+        <div class="coming-soon">
+            <h2>Coming Soon</h2>
+            <p>Our exclusive line of MPower branded apparel is currently in development. Stay tuned for our official launch where you'll be able to represent MPower with pride.</p>
+            <a href="#" class="btn">Get Notified</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo">
+                </div>
+                <p>MPower is dedicated to creating a supportive space where Black and minority professional masculine-presenting women and FTM individuals can thrive through authentic connection and unity.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-nav">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#blogs">Blogs</a></li>
+                    <li><a href="#guidelines">Guidelines</a></li>
+                    <li><a href="#join">Join Us</a></li>
+                    <li><a href="#apparel">Apparel</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-legal">
+                <h3 class="footer-title">Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#terms" id="terms">Terms of Service</a></li>
+                    <li><a href="#privacy" id="privacy">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3 class="footer-title">Contact Us</h3>
+                <ul class="footer-links">
+                    <li>
+                        <span class="contact-icon"><i class="far fa-envelope"></i></span>
+                        info@mascpower.com
+                    </li>
+                    <li>
+                        <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+                        Atlanta, GA
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 MPower. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Terms Modal -->
+<div id="terms-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Terms of Service</h2>
+        <div class="modal-body">
+            <h3>1. Introduction</h3>
+            <p>These Website Terms and Conditions ("Terms") govern your access to and use of the MPower website, services, and content (collectively, the "Service"). By accessing or using the Service, you agree to be bound by these Terms. If you do not agree to these Terms, please do not access or use the Service.</p>
+            
+            <h3>2. Definitions</h3>
+            <p>"MPower," "we," "us," and "our" refer to MPower organization.</p>
+            <p>"User," "you," and "your" refer to the individual or entity accessing or using the Service.</p>
+            <p>"Content" refers to any information, text, graphics, photos, or other materials uploaded, downloaded, or appearing on the Service.</p>
+            
+            <h3>3. User Accounts</h3>
+            <p>When you create an account with us, you must provide accurate, complete, and current information. You are responsible for safeguarding your account credentials and for any activities or actions under your account.</p>
+            <p>We reserve the right to disable any user account if we believe you have violated these Terms.</p>
+            
+            <h3>4. Intellectual Property Rights</h3>
+            <p>The Service and its original content, features, and functionality are owned by MPower and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+            <p>You may not copy, modify, create derivative works of, publicly display, publicly perform, republish, or transmit any of the material on our Service without prior written consent.</p>
+            
+            <h3>5. User Content</h3>
+            <p>By submitting content to the Service, you grant MPower a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, adapt, publish, translate, and distribute your content in any existing or future media formats.</p>
+            <p>You represent and warrant that you own or have the necessary rights to the content you submit and that the content does not violate the rights of any third party.</p>
+            
+            <h3>6. Prohibited Activities</h3>
+            <p>You may not engage in any of the following activities:</p>
+            <ul>
+                <li>Violating laws or regulations</li>
+                <li>Infringing on intellectual property rights</li>
+                <li>Attempting to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the Service</li>
+                <li>Taking any action that imposes an unreasonable or disproportionately large load on our infrastructure</li>
+                <li>Uploading invalid data, viruses, worms, or other software agents through the Service</li>
+                <li>Collecting or harvesting any personally identifiable information from the Service</li>
+                <li>Using the Service for any commercial solicitation purposes without our consent</li>
+                <li>Impersonating another person or otherwise misrepresenting your affiliation with a person or entity</li>
+            </ul>
+            
+            <h3>7. Termination</h3>
+            <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason, including breach of these Terms.</p>
+            <p>Upon termination, your right to use the Service will immediately cease.</p>
+            
+            <h3>8. Limitation of Liability</h3>
+            <p>In no event shall MPower, its officers, directors, employees, or agents be liable for any indirect, incidental, special, consequential, or punitive damages whatsoever arising out of or in connection with your use of the Service.</p>
+            
+            <h3>9. Indemnification</h3>
+            <p>You agree to defend, indemnify, and hold harmless MPower and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses arising out of or in any way connected with your access to or use of the Service.</p>
+            
+            <h3>10. Changes to Terms</h3>
+            <p>We reserve the right to modify these Terms at any time. We will provide notice of significant changes by posting the new Terms on the Service and updating the "Last Updated" date.</p>
+            <p>Your continued use of the Service after such modifications constitutes your acknowledgment of the modified Terms and agreement to abide by them.</p>
+            
+            <h3>11. Governing Law</h3>
+            <p>These Terms shall be governed by the laws of the State of Georgia, without regard to its conflict of law provisions.</p>
+            
+            <h3>12. Contact Information</h3>
+            <p>If you have any questions about these Terms, please contact us at info@mascpower.com.</p>
+            
+            <p><strong>Last Updated:</strong> April 11, 2025</p>
+        </div>
+    </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacy-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Privacy Policy</h2>
+        <div class="modal-body">
+            <h3>1. Introduction</h3>
+            <p>MPower ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, including any other media form, media channel, mobile website, or mobile application related or connected thereto (collectively, the "Site").</p>
+            <p>Please read this Privacy Policy carefully. By accessing or using the Site, you acknowledge that you have read, understood, and agree to be bound by all the terms of this Privacy Policy.</p>
+            
+            <h3>2. Information We Collect</h3>
+            <p><strong>Personal Data.</strong> We collect personal information that you voluntarily provide to us when you register on the Site, express an interest in obtaining information about us or our products and services, participate in activities on the Site, or otherwise contact us. The personal information we collect may include:</p>
+            <ul>
+                <li>Name, email address, phone number, and other contact information</li>
+                <li>Professional information such as occupation, industry, and employer</li>
+                <li>Membership application responses</li>
+                <li>Payment information for membership dues, donations, or purchases</li>
+                <li>Social media profiles and information</li>
+            </ul>
+            
+            <p><strong>Automatically Collected Information.</strong> We may automatically collect certain information when you visit, use, or navigate the Site. This information does not reveal your specific identity but may include:</p>
+            <ul>
+                <li>Device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, and information about how and when you use our Site</li>
+                <li>Cookies and similar technologies</li>
+            </ul>
+            
+            <h3>3. How We Use Your Information</h3>
+            <p>We use personal information collected via our Site for a variety of business purposes, including:</p>
+            <ul>
+                <li>To facilitate account creation and authentication</li>
+                <li>To process membership applications and maintain member records</li>
+                <li>To communicate with you about events, news, and organizational updates</li>
+                <li>To process payments for membership dues, donations, or merchandise</li>
+                <li>To organize and manage events and initiatives</li>
+                <li>To respond to inquiries and provide customer support</li>
+                <li>To improve our website, products, and services</li>
+                <li>To protect our legal rights and comply with our legal obligations</li>
+            </ul>
+            
+            <h3>4. Disclosure of Your Information</h3>
+            <p>We may share information in the following situations:</p>
+            <ul>
+                <li><strong>With Service Providers.</strong> We may share your information with third-party vendors, service providers, contractors, or agents who perform services for us or on our behalf.</li>
+                <li><strong>With Business Partners.</strong> We may share your information with our business partners to offer you certain products, services, or promotions.</li>
+                <li><strong>With Your Consent.</strong> We may disclose your personal information for any other purpose with your consent.</li>
+                <li><strong>Legal Requirements.</strong> We may disclose your information where we are legally required to do so.</li>
+            </ul>
+            
+            <h3>5. Security of Your Information</h3>
+            <p>We use administrative, technical, and physical security measures to help protect your personal information from unauthorized access, use, or disclosure. However, no security system is impenetrable, and we cannot guarantee the security of our systems 100%.</p>
+            
+            <h3>6. Cookie Policy</h3>
+            <p>We use cookies and similar tracking technologies to track activity on our Site and store certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
+            
+            <h3>7. Your Privacy Rights</h3>
+            <p>Depending on your location, you may have certain rights regarding your personal information, such as the right to:</p>
+            <ul>
+                <li>Access your personal information</li>
+                <li>Correct inaccurate personal information</li>
+                <li>Request deletion of your personal information</li>
+                <li>Object to our use and processing of your personal information</li>
+                <li>Request that we limit our use and processing of your personal information</li>
+                <li>Request portability of your personal information</li>
+            </ul>
+            
+            <h3>8. Data Retention</h3>
+            <p>We will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our agreements.</p>
+            
+            <h3>9. Children's Privacy</h3>
+            <p>Our Site is not intended for individuals under the age of 18. We do not knowingly collect personal information from children under 18.</p>
+            
+            <h3>10. Changes to This Privacy Policy</h3>
+            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+            
+            <h3>11. Contact Us</h3>
+            <p>If you have questions or concerns about this Privacy Policy or our practices, please contact us at info@mascpower.com.</p>
+            
+            <p><strong>Last Updated:</strong> April 11, 2025</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    const headerLogo = document.getElementById('header-logo');
     
-    <style>
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('header-scrolled');
+        } else {
+            header.classList.remove('header-scrolled');
         }
-        
-        .modal.show {
-            display: block;
-            opacity: 1;
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transform: translateY(-50px);
-            transition: transform 0.3s ease;
-        }
-        
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-        
-        .modal-close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        
-        .modal-close:hover {
-            color: var(--black);
-        }
-        
-        .modal-body {
-            margin-top: 20px;
-        }
-        
-        .modal-body h3 {
-            color: var(--black);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .modal-body p, .modal-body ul {
-            margin-bottom: 15px;
-            color: var(--dark-gray);
-        }
-        
-        .modal-body ul {
-            padding-left: 20px;
-        }
-        
-        .modal-body ul li {
-            margin-bottom: 8px;
-        }
-    </style>
+    });
     
-    <script>
-        // Header scroll effect
-        const header = document.getElementById('header');
-        const headerLogo = document.getElementById('header-logo');
+    // Mobile Navigation Toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking nav links
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+    });
+    
+    // Event Carousel
+    const eventSlides = document.querySelectorAll('.event-slide');
+    const eventDots = document.querySelectorAll('.events .carousel-controls .carousel-dot');
+    let currentEventSlide = 0;
+    
+    function showEventSlide(n) {
+        eventSlides.forEach(slide => slide.classList.remove('active'));
+        eventDots.forEach(dot => dot.classList.remove('active'));
         
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('header-scrolled');
-            } else {
-                header.classList.remove('header-scrolled');
+        currentEventSlide = (n + eventSlides.length) % eventSlides.length;
+        
+        eventSlides[currentEventSlide].classList.add('active');
+        eventDots[currentEventSlide].classList.add('active');
+    }
+    
+    eventDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showEventSlide(index);
+        });
+    });
+    
+    // Auto-rotate event slides
+    setInterval(() => {
+        showEventSlide(currentEventSlide + 1);
+    }, 5000);
+    
+    // Blog Carousel
+    const blogSlides = document.querySelectorAll('.blog-slide');
+    const blogDots = document.querySelectorAll('.blog .carousel-controls .carousel-dot');
+    let currentBlogSlide = 0;
+    
+    function showBlogSlide(n) {
+        blogSlides.forEach(slide => slide.classList.remove('active'));
+        blogDots.forEach(dot => dot.classList.remove('active'));
+        
+        currentBlogSlide = (n + blogSlides.length) % blogSlides.length;
+        
+        blogSlides[currentBlogSlide].classList.add('active');
+        blogDots[currentBlogSlide].classList.add('active');
+    }
+    
+    blogDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showBlogSlide(index);
+        });
+    });
+    
+    // Auto-rotate blog slides
+    setInterval(() => {
+        showBlogSlide(currentBlogSlide + 1);
+    }, 7000);
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            if (this.getAttribute('href') === '#terms' || this.getAttribute('href') === '#privacy') {
+                return; // Let modal handlers take care of these
             }
-        });
-        
-        // Mobile Navigation Toggle
-        const navToggle = document.getElementById('nav-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking nav links
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-        
-        // Event Carousel
-        const eventSlides = document.querySelectorAll('.event-slide');
-        const eventDots = document.querySelectorAll('.carousel-controls .carousel-dot');
-        let currentEventSlide = 0;
-        
-        function showEventSlide(n) {
-            eventSlides.forEach(slide => slide.classList.remove('active'));
-            eventDots.forEach(dot => dot.classList.remove('active'));
             
-            currentEventSlide = (n + eventSlides.length) % eventSlides.length;
+            e.preventDefault();
             
-            eventSlides[currentEventSlide].classList.add('active');
-            eventDots[currentEventSlide].classList.add('active');
-        }
-        
-        eventDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showEventSlide(index);
-            });
-        });
-        
-        // Auto-rotate event slides
-        setInterval(() => {
-            showEventSlide(currentEventSlide + 1);
-        }, 5000);
-        
-        // Blogs Carousel
-        const blogSlides = document.querySelectorAll('.blog-slide');
-        const blogDots = document.querySelectorAll('.blog .carousel-controls .carousel-dot');
-        let currentBlogSlide = 0;
-        
-        function showBlogSlide(n) {
-            blogSlides.forEach(slide => slide.classList.remove('active'));
-            blogDots.forEach(dot => dot.classList.remove('active'));
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
             
-            currentBlogSlide = (n + blogSlides.length) % blogSlides.length;
-            
-            blogSlides[currentBlogSlide].classList.add('active');
-            blogDots[currentBlogSlide].classList.add('active');
-        }
-        
-        blogDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showBlogSlide(index);
-            });
-        });
-        
-        // Auto-rotate blog slides
-        setInterval(() => {
-            showBlogSlide(currentBlogSlide + 1);
-        }, 7000);
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href') === '#terms' || this.getAttribute('href') === '#privacy') {
-                    return; // Let modal handlers take care of these
-                }
-                
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Form submission
-        const applicationForm = document.getElementById('application-form');
-        if (applicationForm) {
-            applicationForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Collect form data
-                const formData = new FormData(this);
-                const formDataObject = {};
-                formData.forEach((value, key) => {
-                    formDataObject[key] = value;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
                 });
-                
-                // Normally this would send data to a server or Google Sheets
-                // For demo purposes, just show a success message
-                this.innerHTML = `
-                    <div style="text-align: center; padding: 30px;">
-                        <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--primary-yellow); margin-bottom: 20px;"></i>
-                        <h3>Application Submitted!</h3>
-                        <p>Thank you for your interest in MPower. We've received your application and will contact you shortly.</p>
-                    </div>
-                `;
-                
-                // In a real implementation, you would use Google Sheets API or another service
-                // to store the form data
-            });
-        }
-        
-        // Modal Functionality
-        const termsLink = document.querySelectorAll('a[href="#terms"]');
-        const privacyLink = document.querySelectorAll('a[href="#privacy"]');
-        const termsModal = document.getElementById('terms-modal');
-        const privacyModal = document.getElementById('privacy-modal');
-        const modalCloseButtons = document.querySelectorAll('.modal-close');
-        
-        function openModal(modal) {
-            modal.style.display = 'block';
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeModal(modal) {
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-            document.body.style.overflow = '';
-        }
-        
-        termsLink.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(termsModal);
-            });
-        });
-        
-        privacyLink.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(privacyModal);
-            });
-        });
-        
-        modalCloseButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const modal = this.closest('.modal');
-                closeModal(modal);
-            });
-        });
-        
-        window.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal')) {
-                closeModal(e.target);
             }
         });
-        
-        // Prevent content copying
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('copy', e => e.preventDefault());
-        document.addEventListener('cut', e => e.preventDefault());
-        document.addEventListener('paste', e => e.preventDefault());
-    </script>
+    });
+    
+    // Form submission
+    const applicationForm = document.getElementById('application-form');
+    if (applicationForm) {
+        applicationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+            
+            // Normally this would send data to a server or Google Sheets
+            // For demo purposes, just show a success message
+            this.innerHTML = `
+                <div style="text-align: center; padding: 30px;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--primary-yellow); margin-bottom: 20px;"></i>
+                    <h3>Application Submitted!</h3>
+                    <p>Thank you for your interest in MPower. We've received your application and will contact you shortly.</p>
+                </div>
+            `;
+            
+            // In a real implementation, you would use Google Sheets API or another service
+            // to store the form data
+        });
+    }
+    
+    // Modal Functionality
+    const termsLink = document.querySelectorAll('a[href="#terms"]');
+    const privacyLink = document.querySelectorAll('a[href="#privacy"]');
+    const termsModal = document.getElementById('terms-modal');
+    const privacyModal = document.getElementById('privacy-modal');
+    const modalCloseButtons = document.querySelectorAll('.modal-close');
+    
+    function openModal(modal) {
+        modal.style.display = 'block';
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal(modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+        document.body.style.overflow = '';
+    }
+    
+    termsLink.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(termsModal);
+        });
+    });
+    
+    privacyLink.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(privacyModal);
+        });
+    });
+    
+    modalCloseButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            closeModal(modal);
+        });
+    });
+    
+    window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+            closeModal(e.target);
+        }
+    });
+    
+    // Prevent content copying except on form fields
+    document.addEventListener('contextmenu', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+        }
+    });
+    
+    document.addEventListener('copy', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+        }
+    });
+    
+    document.addEventListener('cut', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+        }
+    });
+    
+    document.addEventListener('paste', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+        }
+    });
+</script>
 </body>
 </html>
-    
-    <!-- Community Guidelines -->
-    <section class="section guidelines" id="guidelines">
-        <div class="container">
-            <h2 class="section-title">Our Community Guidelines</h2>
-            
-            <div class="guidelines-content">
-                <h2>Community Guidelines</h2>
-                <p>At MPower, we believe in creating a space where all members can thrive authentically. These guidelines help us maintain our community's integrity and purpose.</p>
-                
-                <ul class="guidelines-list">
-                    <li><strong>Move with intention, respect, and power.</strong> We represent ourselves with dignity and purpose in all interactions.</li>
-                    <li><strong>Stay active and engaged — online and in person.</strong> Your presence and participation strengthen our community.</li>
-                    <li><strong>Uplift each other: celebrate wins, offer support, show up.</strong> We rise by lifting others and celebrating our collective achievements.</li>
-                    <li><strong>Respect shared space, especially during guest events.</strong> Allow room for everyone to connect and grow.</li>
-                    <li><strong>Lead with love, be accountable, and always come as you are.</strong> Authenticity is our foundation.</li>
-                    <li><strong>Inactive members may be removed to preserve the group's integrity and energy.</strong> Our community thrives through active participation.</li>
-                </ul>
-                
-                <a href="#" class="btn" style="margin-top: 30px;">View Full By-Laws</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Join Section -->
-    <section class="section join" id="join">
-        <div class="container">
-            <h2 class="section-title">Join MPower</h2>
-            
-            <div class="join-content">
-                <div class="join-text">
-                    <h2>Become a Member</h2>
-                    <p>MPower is an exclusive, members-only organization dedicated to supporting Black and minority professional masculine-presenting women and FTM individuals.</p>
-                    <p>Our application process ensures we maintain a community of like-minded individuals committed to our mission of strength, authenticity, and unity.</p>
-                    <p>Members pay dues that support our events, initiatives, and community programs, creating value for all who participate.</p>
-                    <p>Complete the application form to begin the screening process. Our team will review your application and contact you for the next steps.</p>
-                </div>
-                
-                <div class="join-form">
-                    <form id="application-form">
-                        <div class="form-group">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" id="fullName" name="fullName" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="profession" class="form-label">Profession/Industry</label>
-                            <input type="text" id="profession" name="profession" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="location" class="form-label">City, State</label>
-                            <input type="text" id="location" name="location" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="referral" class="form-label">How did you hear about MPower?</label>
-                            <select id="referral" name="referral" class="form-select" required>
-                                <option value="">Select an option</option>
-                                <option value="current-member">Current Member</option>
-                                <option value="event">MPower Event</option>
-                                <option value="social-media">Social Media</option>
-                                <option value="website">Website</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="why-join" class="form-label">Why do you want to join MPower?</label>
-                            <textarea id="why-join" name="why-join" class="form-textarea" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <input type="checkbox" required> I agree to the <a href="#terms">Terms and Conditions</a> and <a href="#privacy">Privacy Policy</a>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-black" style="width: 100%;">Submit Application</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="container">
-            <h2 class="section-title">About MPower</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Our Mission</h2>
-                    <p>MPower is a non-organization that represents Black and minority professional masculine-presenting (lesbian) women and female-to-male (FTM) transitioned individuals who are either gainfully employed and/or self-employed throughout various industries.</p>
-                    <p>Our purpose is to bring these like-minded and spirited individuals together to inspire, uplift, and motivate one another while still having fun. Our mission is to create a supportive space where authenticity, strength, and unity thrive.</p>
-                    <p>The organization is structured like the President's cabinet. We have the President, Tip White, who is the founder. In her Cabinet are the heads of each committee: Technology, Marketing, Treasury, Media, Events, and more. Each committee is responsible for heading their own projects, with cross-committee endeavors to accomplish our collective goals.</p>
-                    <a href="#join" class="btn btn-black">Become a Member</a>
-                </div>
-                <div class="about-img">
-                    <img src="/api/placeholder/600/400" alt="MPower Community">
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="#" class="btn btn-black">View All Events</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Blogs/Vlogs Section -->
-    <section class="section blog" id="blog">
-        <div class="container">
-            <h2 class="section-title">Blogs & Vlogs</h2>
-            
-            <div class="blog-carousel">
-                <div class="blog-slide active" style="display: flex;">
-                    <div class="blog-slide-img">
-                        <img src="./assets/images/blog/authentic-self.jpg" alt="Blog Post">
-                    </div>
-                    <div class="blog-slide-content">
-                        <span class="blog-date">April 5, 2025</span>
-                        <h3>Navigating Corporate America as Your Authentic Self</h3>
-                        <p>In this thought-provoking piece, we explore the challenges and triumphs of maintaining authenticity in corporate environments while creating pathways for others to follow.</p>
-                        <p>The journey of self-expression in professional settings continues to evolve, with MPower members leading the way in various industries.</p>
-                        <a href="#" class="btn">Read More</a>
-                        
-                        <div class="blog-author">
-                            <div class="blog-author-img">
-                                <img src="./assets/images/team/janelle.jpg" alt="Author">
-                            </div>
-                            <div>
-                                <div class="blog-author-name">Janelle Reynolds</div>
-                                <div class="blog-author-title">Technology Committee Head</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="blog-slide" style="display: flex;">
-                    <div class="blog-slide-img">
-                        <img src="./assets/images/blog/wealth-building.jpg" alt="Vlog Post">
-                    </div>
-                    <div class="blog-slide-content">
-                        <span class="blog-date">March 22, 2025</span>
-                        <h3>Building Wealth in Our Communities</h3>
-                        <p>This vlog series explores financial literacy, investment strategies, and wealth-building specifically tailored for our community members.</p>
-                        <p>Learn practical tips for entrepreneurship, real estate investment, and creating generational wealth from experts within our community.</p>
-                        <a href="#" class="btn">Watch Video</a>
-                        
-                        <div class="blog-author">
-                            <div class="blog-author-img">
-                                <img src="./assets/images/team/marcus.jpg" alt="Author">
-                            </div>
-                            <div>
-                                <div class="blog-author-name">Marcus Johnson</div>
-                                <div class="blog-author-title">Treasury Committee Head</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="blog-slide" style="display: flex;">
-                    <div class="blog-slide-img">
-                        <img src="./assets/images/blog/mentorship.jpg" alt="Blog Post">
-                    </div>
-                    <div class="blog-slide-content">
-                        <span class="blog-date">March 10, 2025</span>
-                        <h3>The Power of Mentorship</h3>
-                        <p>Highlighting MPower's mentorship program and the transformative impact it's having on both mentors and mentees across various professional fields.</p>
-                        <p>Through structured guidance and authentic connection, we're creating pathways to success for the next generation of leaders.</p>
-                        <a href="#" class="btn">Read More</a>
-                        
-                        <div class="blog-author">
-                            <div class="blog-author-img">
-                                <img src="./assets/images/team/alex.jpg" alt="Author">
-                            </div>
-                            <div>
-                                <div class="blog-author-name">Alex Rivera</div>
-                                <div class="blog-author-title">Media Committee Head</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-controls">
-                <span class="carousel-dot active" data-slide="0"></span>
-                <span class="carousel-dot" data-slide="1"></span>
-                <span class="carousel-dot" data-slide="2"></span>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="#" class="btn btn-black">View All Posts</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events Section -->
-    <section class="section events" id="events">
-        <div class="container">
-            <h2 class="section-title">Events & Initiatives</h2>
-            
-            <div class="event-carousel">
-                <div class="event-slide active">
-                    <img src="./assets/images/events/networking-mixer.jpg" alt="Networking Mixer Event">
-                    <div class="event-info">
-                        <span class="event-date">June 25, 2025</span>
-                        <h3>Professional Networking Mixer</h3>
-                        <p>Join us for an evening of networking, connection, and community building with professionals across various industries.</p>
-                    </div>
-                </div>
-                <div class="event-slide">
-                    <img src="./assets/images/events/business-expo.jpg" alt="Business Expo">
-                    <div class="event-info">
-                        <span class="event-date">August 12-14, 2025</span>
-                        <h3>Annual Business Expo</h3>
-                        <p>Showcasing our members' businesses and entrepreneurial ventures with opportunities for collaboration and growth.</p>
-                    </div>
-                </div>
-                <div class="event-slide">
-                    <img src="./assets/images/events/educational-panel.jpg" alt="Educational Panel">
-                    <div class="event-info">
-                        <span class="event-date">July 8, 2025</span>
-                        <h3>Navigating Professional Spaces Panel</h3>
-                        <p>An educational discussion with industry leaders on creating authentic presence in professional environments.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-controls">
-                <span class="carousel-dot active" data-slide="0"></span>
-                <span class="carousel-dot" data-slide="1"></span>
-                <span class="carousel-dot" data-slide="2"></span>
-            </div>
-            
-            <h3 style="text-align: center; margin-top: 60px;">Past Events</h3>
-            
-            <div class="events-grid">
-                <div class="event-card">
-                    <div class="event-card-img">
-                        <img src="/api/placeholder/400/200" alt="Volunteer Opportunity">
-                    </div>
-                    <div class="event-card-content">
-                        <span class="event-card-date">March 15, 2025</span>
-                        <h3>Community Service Project</h3>
-                        <p>Members volunteered at local LGBTQ+ youth center, providing mentorship and support.</p>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-                
-                <div class="event-card">
-                    <div class="event-card-img">
-                        <img src="/api/placeholder/400/200" alt="Investment Workshop">
-                    </div>
-                    <div class="event-card-content">
-                        <span class="event-card-date">February 22, 2025</span>
-                        <h3>Investment & Business Development Workshop</h3>
-                        <p>Financial experts shared strategies for business growth and wealth building.</p>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-                
-                <div class="event-card">
-                    <div class="event-card-img">
-                        <img src="/api/placeholder/400/200" alt="Annual Retreat">
-                    </div>
-                    <div class="event-card-
