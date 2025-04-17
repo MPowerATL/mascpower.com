@@ -293,6 +293,30 @@
             height: auto;
             display: block;
         }
+
+        /* Hide forms.app branding */
+iframe[src*="forms.app"] {
+    overflow: hidden;
+    margin-bottom: 0 !important;
+    /* Adjust the height to ensure the form is fully visible but branding is cut off */
+    height: calc(100% + 30px) !important;
+}
+
+/* Alternative approach using specific targeting */
+.join-form iframe {
+    position: relative;
+}
+
+.join-form iframe::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;  /* Adjust this height based on the branding size */
+    background-color: var(--primary-yellow);  /* Match your section background */
+    z-index: 10;
+}
         
         /* Events Section */
         .events {
@@ -1517,60 +1541,9 @@
                 </div>
                 
                 <div class="join-form">
-                    <form id="application-form">
-                        <div class="form-group">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" id="fullName" name="fullName" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="profession" class="form-label">Profession/Industry</label>
-                            <input type="text" id="profession" name="profession" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="location" class="form-label">City, State</label>
-                            <input type="text" id="location" name="location" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="referral" class="form-label">How did you hear about MPower?</label>
-                            <select id="referral" name="referral" class="form-select" required>
-                                <option value="">Select an option</option>
-                                <option value="current-member">Current Member</option>
-                                <option value="event">MPower Event</option>
-                                <option value="social-media">Social Media</option>
-                                <option value="website">Website</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="why-join" class="form-label">Why do you want to join MPower?</label>
-                            <textarea id="why-join" name="why-join" class="form-textarea" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <input type="checkbox" required> I agree to the <a href="#terms">Terms and Conditions</a> and <a href="#privacy">Privacy Policy</a>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-black" style="width: 100%;">Submit Application</button>
-                    </form>
+                    <div class="form-loading">Loading application form...</div>
+                    <iframe id="" allowtransparency="true" allowfullscreen="true" allow="geolocation" src="https://x8lgwpv0.forms.app/form/680119671b621500020c4dab" frameborder="0" style="width: 100vw; min-width:100%; height:600px; border:none;"></iframe>
                 </div>
-            </div>
-        </div>
     </section>
 
 <!-- Support Section -->
