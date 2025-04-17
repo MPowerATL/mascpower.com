@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPower - Community Guidelines & By-Laws</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/crown-logo.png">
+    <style>
+        /* Prevent copying content */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        :root {
+            --primary-yellow: #FFDE59;
+            --light-gray: #E4E2DD;
+            --black: #000000;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+        }
+        
+        body {
+            background-color: white;
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5 {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -1px;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+        
+        h3 {
+            font-size: 2rem;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-yellow);
+            color: var(--black);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: var(--black);
+            color: var(--primary-yellow);
+            transform: translateY(-3px);
+        }
+        
+        .btn-black {
+            background-color: var(--black);
+            color: var(--primary-yellow);
+        }
+        
+        .btn-black:hover {
+            background-color: var(--primary-yellow);
+            color: var(--black);
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-yellow);
+            margin: 20px auto 0;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--black);
+            color: white;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .header-scrolled {
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: auto;
+            max-height: 50px;
+            max-width: 200px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-scrolled .logo img {
+            max-height: 40px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-yellow);
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Bylaws Content Styles */
+        .bylaws {
+            padding-top: 150px;
+            padding-bottom: 80px;
+        }
+        
+        .bylaws-header {
+            background-color: var(--black);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .bylaws-header h1 {
+            color: var(--primary-yellow);
+        }
+        
+        .bylaws-section {
+            margin-bottom: 50px;
+        }
+        
+        .bylaws-section h2 {
+            color: var(--black);
+            border-bottom: 2px solid var(--primary-yellow);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .bylaws-section h3 {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .bylaws-list {
+            list-style-type: none;
+            margin-bottom: 30px;
+        }
+        
+        .bylaws-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .bylaws-list li::before {
+            content: '✓';
+            color: var(--primary-yellow);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .bylaws-numbered {
+            list-style-type: decimal;
+            margin-left: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .bylaws-numbered li {
+            margin-bottom: 15px;
+        }
+        
+        .bylaws-alpha {
+            list-style-type: lower-alpha;
+            margin-left: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .bylaws-alpha li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight-box {
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--primary-yellow);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-yellow);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+        }
+        
+        .footer-about p {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary-yellow);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-yellow);
+        }
+        
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+        
+        .contact-icon {
+            margin-right: 15px;
+            color: var(--primary-yellow);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-bottom a:hover {
+            color: var(--primary-yellow);
+        }
+        
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--black);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 100px;
+                transition: all 0.4s ease;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 0 0 25px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo" id="header-logo">
+                </a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#events">Events</a></li>
+                    <li><a href="index.html#blogs">Blogs</a></li>
+                    <li><a href="index.html#guidelines">Guidelines</a></li>
+                    <li><a href="index.html#join">Join Us</a></li>
+                    <li><a href="index.html#apparel">Apparel</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bylaws Header -->
+    <div class="bylaws-header">
+        <div class="container">
+            <h1>MPower Community Guidelines & By-Laws</h1>
+            <p>Our foundation for creating a supportive, empowering, and authentic community</p>
+        </div>
+    </div>
+    
+    <!-- Bylaws Content -->
+    <section class="bylaws">
+        <div class="container">
+            <div class="bylaws-section">
+                <h2>Our Mission Statement</h2>
+                <p>MPower is a non-organization that represents Black and minority professional masculine-presenting (lesbian) women and female-to-male (FTM) transitioned individuals who are either gainfully employed and/or self-employed throughout various industries.</p>
+                <p>Our purpose is to bring these like-minded and spirited individuals together to inspire, uplift, and motivate one another while still having fun. Our mission is to create a supportive space where authenticity, strength, and unity thrive.</p>
+                <div class="highlight-box">
+                    <p><strong>Strength in Identity, Empowering Through Unity</strong></p>
+                </div>
+            </div>
+            
+            <div class="bylaws-section">
+                <h2>Article I: Organization Structure</h2>
+                <p>The organization is structured like the President's cabinet. We have the President, Tip White, who is the founder. In her Cabinet are the heads of each committee.</p>
+                
+                <h3>Section 1: Leadership Structure</h3>
+                <ol class="bylaws-numbered">
+                    <li><strong>President:</strong> Serves as the founder and executive leader of MPower, setting the vision and direction for the organization.</li>
+                    <li><strong>Cabinet:</strong> Consists of Committee Heads who are appointed by the President to lead specific areas of the organization's operations.</li>
+                    <li><strong>Committee Heads:</strong> Individuals who lead specific focus areas and report directly to the President.</li>
+                </ol>
+                
+                <h3>Section 2: Committees</h3>
+                <p>Each committee is responsible for heading their own projects, with cross-committee endeavors to accomplish our collective goals.</p>
+                <ol class="bylaws-numbered">
+                    <li><strong>Technology Committee:</strong> Manages digital presence, website, and technical solutions for the organization.</li>
+                    <li><strong>Marketing Committee:</strong> Handles promotion, branding, and public relations.</li>
+                    <li><strong>Treasury Committee:</strong> Oversees financial management, budgeting, and fundraising initiatives.</li>
+                    <li><strong>Media Committee:</strong> Creates and distributes content across various platforms.</li>
+                    <li><strong>Events Committee:</strong> Plans, organizes, and executes all MPower events and gatherings.</li>
+                    <li><strong>Membership Committee:</strong> Manages the application process, onboarding, and member relations.</li>
+                </ol>
+            </div>
+            
+            <div class="bylaws-section">
+                <h2>Article II: Membership</h2>
+                
+                <h3>Section 1: Eligibility</h3>
+                <p>Membership in MPower is open to individuals who meet the following criteria:</p>
+                <ul class="bylaws-list">
+                    <li>Black and minority professional masculine-presenting women</li>
+                    <li>Black and minority female-to-male (FTM) transitioned individuals</li>
+                    <li>Individuals who are gainfully employed and/or self-employed across various industries</li>
+                    <li>Individuals who align with and support the mission and values of MPower</li>
+                </ul>
+                
+                <h3>Section 2: Application Process</h3>
+                <ol class="bylaws-numbered">
+                    <li>Prospective members must complete the official membership application form.</li>
+                    <li>Applications are reviewed by the Membership Committee.</li>
+                    <li>Selected applicants may be invited for an interview or to attend an event as part of the screening process.</li>
+                    <li>Final membership decisions are made by the Membership Committee with approval from the President.</li>
+                </ol>
+                
+                <h3>Section 3: Membership Dues</h3>
+                <p>All members are required to pay membership dues that support the organization's events, initiatives, and community programs.</p>
+                <ol class="bylaws-numbered">
+                    <li>Dues are to be paid annually by the anniversary of joining.</li>
+                    <li>The amount of dues is determined by the Treasury Committee with approval from the President.</li>
+                    <li>Hardship exceptions may be considered on a case-by-case basis.</li>
+                </ol>
+                
+                <h3>Section 4: Membership Termination</h3>
+                <p>Membership may be terminated for the following reasons:</p>
+                <ol class="bylaws-alpha">
+                    <li>Voluntary resignation</li>
+                    <li>Non-payment of dues after a 60-day grace period</li>
+                    <li>Violation of community guidelines</li>
+                    <li>Conduct that damages the reputation or mission of MPower</li>
+                    <li>Inactive participation for an extended period</li>
+                </ol>
+            </div>
+            
+            <div class="bylaws-section">
+                <h2>Article III: Community Guidelines</h2>
+                <p>At MPower, we believe in creating a space where all members can thrive authentically. These guidelines help us maintain our community's integrity and purpose.</p>
+                
+                <ul class="bylaws-list">
+                    <li><strong>Move with intention, respect, and power.</strong> We represent ourselves with dignity and purpose in all interactions.</li>
+                    <li><strong>Stay active and engaged — online and in person.</strong> Your presence and participation strengthen our community.</li>
+                    <li><strong>Uplift each other: celebrate wins, offer support, show up.</strong> We rise by lifting others and celebrating our collective achievements.</li>
+                    <li><strong>Respect shared space, especially during guest events.</strong> Allow room for everyone to connect and grow.</li>
+                    <li><strong>Lead with love, be accountable, and always come as you are.</strong> Authenticity is our foundation.</li>
+                    <li><strong>Inactive members may be removed to preserve the group's integrity and energy.</strong> Our community thrives through active participation.</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <p>These guidelines are not just rules, but a way of being that honors our mission and strengthens our community. By joining MPower, you commit to upholding these principles in all interactions with fellow members and when representing the organization.</p>
+                </div>
+            </div>
+            
+            <div class="bylaws-section">
+                <h2>Article IV: Meetings and Events</h2>
+                
+                <h3>Section 1: Regular Meetings</h3>
+                <ol class="bylaws-numbered">
+                    <li>Cabinet meetings shall be held monthly, with Committee Heads required to attend.</li>
+                    <li>Committee meetings shall be scheduled by each Committee Head as needed to fulfill their objectives.</li>
+                    <li>General membership meetings shall be held quarterly to update the community on organization activities and initiatives.</li>
+                </ol>
+                
+                <h3>Section 2: Events</h3>
+                <p>MPower hosts various events throughout the year, including but not limited to:</p>
+                <ul class="bylaws-list">
+                    <li>Professional networking mixers</li>
+                    <li>Educational panels and workshops</li>
+                    <li>Annual business expo</li>
+                    <li>Leadership retreats</li>
+                    <li>Community service projects</li>
+                    <li>Social gatherings and celebrations</li>
+                </ul>
+                
+                <h3>Section 3: Attendance</h3>
+                <p>Active participation is essential to maintaining membership status:</p>
+                <ol class="bylaws-alpha">
+                    <li>Members are expected to attend at least one event per quarter.</li>
+                    <li>Committee Heads must attend 75% of Cabinet meetings annually.</li>
+                    <li>Committee members must attend 75% of their respective committee meetings.</li>
+                </ol>
+            </div>
+            
+            <div class="bylaws-section">
+                <h2>Article V: Amendments</h2>
+                <p>These by-laws may be amended when necessary by a two-thirds majority vote of the Cabinet. Proposed amendments must be submitted to the President in writing and shall be sent to Cabinet members with regular Cabinet meeting announcements.</p>
+            </div>
+            
+            <div class="bylaws-section">
+                <h2>Article VI: Confidentiality</h2>
+                <p>All members agree to maintain the confidentiality of discussions, personal information shared, and sensitive matters discussed within the community. This creates a safe space for authentic expression and connection.</p>
+            </div>
+            
+            <div class="bylaws-section">
+                <h2>Article VII: Conflict Resolution</h2>
+                <p>Conflicts within the organization shall be addressed through a structured resolution process:</p>
+                <ol class="bylaws-numbered">
+                    <li>Direct communication between involved parties</li>
+                    <li>Mediation by a neutral Committee Head if direct communication is unsuccessful</li>
+                    <li>Review by the President for final decision if necessary</li>
+                </ol>
+            </div>
+            
+            <div class="bylaws-section">
+                <h2>Certification</h2>
+                <p>These by-laws were approved by the MPower President and Cabinet on April 1, 2025.</p>
+                <p><strong>Tip White</strong>, President</p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="index.html" class="btn btn-black">Return to Homepage</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo">
+                    </div>
+                    <p>MPower is dedicated to creating a supportive space where Black and minority professional masculine-presenting women and FTM individuals can thrive through authentic connection and unity.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-nav">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#events">Events</a></li>
+                        <li><a href="index.html#blogs">Blogs</a></li>
+                        <li><a href="index.html#guidelines">Guidelines</a></li>
+                        <li><a href="index.html#join">Join Us</a></li>
+                        <li><a href="index.html#apparel">Apparel</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-legal">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#terms" id="terms">Terms of Service</a></li>
+                        <li><a href="#privacy" id="privacy">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>
+                            <span class="contact-icon"><i class="far fa-envelope"></i></span>
+                            info@mascpower.com
+                        </li>
+                        <li>
+                            <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+                            Atlanta, GA
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MPower. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        const headerLogo = document.getElementById('header-logo');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+        
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Terms & Privacy Modal Functionality
+        document.getElementById('terms').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'index.html#terms';
+        });
+        
+        document.getElementById('privacy').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'index.html#privacy';
+        });
+    </script>
+</body>
+</html>
