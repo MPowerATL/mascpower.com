@@ -453,6 +453,14 @@ iframe[src*="forms.app"] {
             margin-bottom: 20px;
             color: var(--dark-gray);
         }
+        /* Hidden sections - temporarily disabled */
+             .section.events {
+             display: none;
+        }
+        /* Hide navigation links for disabled sections */
+        nav ul li a[href="#events"] {
+             display: none;
+        }
         
         /* Blog Section */
         .blog {
