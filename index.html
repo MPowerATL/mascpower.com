@@ -2169,6 +2169,134 @@ window.addEventListener('resize', adjustFormHeight);
                 e.preventDefault();
             }
         });
+        // Enhanced content protection for all devices, especially mobile
+function enhanceContentProtection() {
+    // Disable context menu (right-click)
+    document.addEventListener('contextmenu', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable copy
+    document.addEventListener('copy', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable cut
+    document.addEventListener('cut', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable paste
+    document.addEventListener('paste', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable selection on mobile
+    document.addEventListener('selectstart', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable touchstart save on mobile (prevents "Add to Home Screen" long-press)
+    document.addEventListener('touchstart', e => {
+        if (!e.target.matches('input, textarea, select, button, a')) {
+            // Still allow touch events for interactive elements
+            if (e.touches.length > 1) {
+                e.preventDefault(); // Prevent pinch zoom which can trigger save dialogs
+            }
+        }
+    }, { passive: false });
+    
+    // Disable save dialog on mobile
+    document.addEventListener('touchhold', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Prevent saving images by dragging
+    document.addEventListener('dragstart', e => {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Add CSS to disable tap highlight on mobile
+    const style = document.createElement('style');
+    style.innerHTML = `
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        input, textarea, select {
+            -webkit-user-select: auto;
+            -khtml-user-select: auto;
+            -moz-user-select: auto;
+            -ms-user-select: auto;
+            user-select: auto;
+        }
+        
+        img {
+            pointer-events: none;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Detect mobile devices and apply additional protections
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile) {
+        // Add viewport meta tag to disable scaling/zooming
+        let metaViewport = document.querySelector('meta[name="viewport"]');
+        if (!metaViewport) {
+            metaViewport = document.createElement('meta');
+            metaViewport.setAttribute('name', 'viewport');
+            document.head.appendChild(metaViewport);
+        }
+        metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+        
+        // Add additional meta tags to prevent saving
+        const metaTags = [
+            { name: 'apple-mobile-web-app-capable', content: 'yes' },
+            { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+            { name: 'format-detection', content: 'telephone=no' }
+        ];
+        
+        metaTags.forEach(meta => {
+            let metaTag = document.querySelector(`meta[name="${meta.name}"]`);
+            if (!metaTag) {
+                metaTag = document.createElement('meta');
+                metaTag.setAttribute('name', meta.name);
+                metaTag.setAttribute('content', meta.content);
+                document.head.appendChild(metaTag);
+            }
+        });
+    }
+}
+
+// Initialize enhanced content protection
+document.addEventListener('DOMContentLoaded', enhanceContentProtection);
     </script>
 </body>
 </html>
