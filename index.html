@@ -1404,7 +1404,19 @@ iframe[src*="forms.app"] {
                         </div>
                     </div>
                 </div>
-                
+                /* Add to your CSS */
+.more-blogs-coming-soon {
+    background-color: var(--light-gray);
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+<div class="more-blogs-coming-soon">
+    <h3>More blogs coming soon!</h3>
+    <p>We're working on additional content to share with our community.</p>
+</div>
+
                 <div class="blog-slide" style="display: flex;">
                     <div class="blog-slide-img">
                         <img src="./assets/images/blog/wealth-building.jpg" alt="Vlog Post">
@@ -1462,7 +1474,7 @@ iframe[src*="forms.app"] {
             </div>
             
             <div style="text-align: center; margin-top: 40px;">
-                <a href="#" class="btn btn-black">View All Posts</a>
+                <a href="./blog/navigating-corporate-america.html" class="btn btn-black">Read Full Article</a>
             </div>
         </div>
     </section>
@@ -1522,7 +1534,7 @@ iframe[src*="forms.app"] {
                     <h3>Sponsor an Event</h3>
                     <p>Partner with MPower to sponsor our networking events, educational panels, business expos, and community initiatives.</p>
                     <p>Your sponsorship helps us create meaningful experiences that empower our members and strengthen our community.</p>
-                    <a href="#" class="btn">Become a Sponsor</a>
+                    <a href="#" class="btn">Coming Soon</a>
                 </div>
                 
                 <div class="support-card">
@@ -1530,7 +1542,7 @@ iframe[src*="forms.app"] {
                     <h3>Make a Donation</h3>
                     <p>Support our mission by making a donation to MPower. Your contribution helps fund our programs, events, and initiatives.</p>
                     <p>Every donation makes a difference in creating opportunities for our members and community.</p>
-                    <a href="#" class="btn">Donate Now</a>
+                    <a href="#" class="btn">Coming Soon</a>
                 </div>
             </div>
         </div>
@@ -1544,7 +1556,7 @@ iframe[src*="forms.app"] {
             <div class="coming-soon">
                 <h2>Coming Soon</h2>
                 <p>Our exclusive line of MPower branded apparel is currently in development. Stay tuned for our official launch where you'll be able to represent MPower with pride.</p>
-                <a href="#" class="btn">Get Notified</a>
+             <!---->   <a href="#" class="btn">Get Notified</a> -->
             </div>
         </div>
     </section>
@@ -1906,7 +1918,25 @@ iframe[src*="forms.app"] {
                 showBlogSlide(index);
             });
         });
-        
+        // Disable blog carousel rotation
+const autoRotateBlogInterval = setInterval(() => {
+    showBlogSlide(currentBlogSlide + 1);
+}, 7000);
+
+// Clear the interval to stop auto-rotation
+clearInterval(autoRotateBlogInterval);
+
+// Make sure only the first blog slide is shown
+document.addEventListener('DOMContentLoaded', function() {
+    // Reset to first slide and keep it there
+    showBlogSlide(0);
+    
+    // Disable click functionality on blog dots
+    blogDots.forEach((dot) => {
+        dot.style.cursor = 'default';
+        dot.removeEventListener('click', () => {});
+    });
+});
         // Auto-rotate blog slides
         setInterval(() => {
             showBlogSlide(currentBlogSlide + 1);
