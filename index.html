@@ -781,6 +781,31 @@ iframe[src*="forms.app"] {
             background-color: white;
             text-align: center;
         }
+        .apparel-icon {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.apparel-icon i {
+    font-size: 2.5rem;
+    color: var(--primary-yellow);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
         
         .coming-soon {
             padding: 60px;
@@ -1512,16 +1537,19 @@ iframe[src*="forms.app"] {
     </section>
     
     <!-- Apparel Section -->
-    <section class="section apparel" id="apparel">
-        <div class="container">
-            <h2 class="section-title">MPower Apparel</h2>
-            
-            <div class="coming-soon">
-                <h2>Coming Soon</h2>
-                <p>Our exclusive line of MPower branded apparel is currently in development. Stay tuned for our official launch where you'll be able to represent MPower with pride.</p>
-                <a href="#" class="btn">Get Notified</a>             </div>
+<section class="section apparel" id="apparel">
+    <div class="container">
+        <h2 class="section-title">MPower Apparel</h2>
+        
+        <div class="coming-soon">
+            <h2>Coming Soon</h2>
+            <p>Our exclusive line of MPower branded apparel is currently in development. Stay tuned for our official launch where you'll be able to represent MPower with pride.</p>
+            <div class="apparel-icon">
+                <i class="fas fa-crown"></i>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
     
     <!-- Footer -->
     <footer>
