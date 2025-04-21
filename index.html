@@ -1833,7 +1833,7 @@ iframe[src*="forms.app"] {
     </div>
 </div>
     <script>
-   // Header scroll effect
+// Header scroll effect
 const header = document.getElementById('header');
 const headerLogo = document.getElementById('header-logo');
 
@@ -1985,8 +1985,11 @@ document.getElementById('disclaimer-link').addEventListener('click', function(e)
     openModal('disclaimer-modal');
 });
 
+// Select all modal close buttons
+const modalCloseButtons = document.querySelectorAll('.modal-close');
+
 // Set up modal close buttons
-document.querySelectorAll('.modal-close').forEach(button => {
+modalCloseButtons.forEach(button => {
     button.addEventListener('click', function() {
         const modal = this.closest('.modal');
         closeModal(modal);
