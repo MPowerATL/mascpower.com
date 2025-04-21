@@ -2075,27 +2075,27 @@ document.addEventListener('paste', e => {
 });
 
 // Terms of Service
-termsLink.addEventListener('click', function(e) {
+document.getElementById('terms-link').addEventListener('click', function(e) {
     e.preventDefault();
-    openModal(termsModal);
+    openModal('terms-modal');
 });
 
 // Privacy Policy
-privacyLink.addEventListener('click', function(e) {
+document.getElementById('privacy-link').addEventListener('click', function(e) {
     e.preventDefault();
-    openModal(privacyModal);
+    openModal('privacy-modal');
 });
 
 // Cookie Policy
-cookieLink.addEventListener('click', function(e) {
+document.getElementById('cookie-link').addEventListener('click', function(e) {
     e.preventDefault();
-    openModal(cookieModal);
+    openModal('cookie-modal');
 });
 
 // Disclaimer
-disclaimerLink.addEventListener('click', function(e) {
+document.getElementById('disclaimer-link').addEventListener('click', function(e) {
     e.preventDefault();
-    openModal(disclaimerModal);
+    openModal('disclaimer-modal');
 });
 
 // Close buttons
