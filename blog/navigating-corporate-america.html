@@ -439,6 +439,29 @@
             color: var(--dark-gray);
             margin-bottom: 20px;
         }
+        /* Add this to your existing CSS in the <style> section */
+.blog-share,
+.blog-related {
+    display: none; /* This hides the elements but keeps them in the DOM */
+}
+
+/* Optional: Add a "coming soon" message at the bottom of the article */
+.blog-content::after {
+    content: '';
+    display: block;
+    margin-top: 60px;
+    padding: 30px;
+    background-color: var(--light-gray);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.blog-content::after {
+    content: 'More articles coming soon!';
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--black);
+}
         
         /* Call to Action */
         .cta {
@@ -770,50 +793,45 @@
                 
                 <p>As we continue navigating corporate America authentically, we do so knowing that our presence is not just legitimate but necessary—for our individual fulfillment, for our communities, and for the evolution of workplaces that truly value human diversity in all its forms.</p>
                 
-                <div class="blog-share">
-                    <div class="share-text">Share This Article</div>
-                    <div class="share-links">
-                        <a href="#" class="share-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="share-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="share-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="share-link"><i class="far fa-envelope"></i></a>
-                    </div>
-                </div>
-                
-                <div class="blog-nav">
-                    <a href="#" class="blog-nav-item">
-                        <div class="blog-nav-icon"><i class="fas fa-arrow-left"></i></div>
-                        <div class="blog-nav-text">
-                            <span>Previous Post</span>
-                            <strong>The Power of Mentorship</strong>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="blog-nav-item">
-                        <div class="blog-nav-text">
-                            <span>Next Post</span>
-                            <strong>Building Wealth in Our Communities</strong>
-                        </div>
-                        <div class="blog-nav-icon"><i class="fas fa-arrow-right"></i></div>
-                    </a>
-                </div>
+                <!-- Replace this entire section: from blog-share through blog-related -->
+<!-- DELETE FROM HERE -->
+        <div class="related-post">
+            <div class="related-post-img">
+                <img src="../assets/images/blog/mentorship.jpg" alt="Mentorship">
             </div>
-            
-            <div class="blog-related">
-                <h2>Related Articles</h2>
-                
-                <div class="related-posts">
-                    <div class="related-post">
-                        <div class="related-post-img">
-                            <img src="../assets/images/blog/mentorship.jpg" alt="Mentorship">
-                        </div>
-                        <div class="related-post-content">
-                            <div class="related-post-date">March 10, 2025</div>
-                            <h3 class="related-post-title">The Power of Mentorship</h3>
-                            <p class="related-post-excerpt">Highlighting MPower's mentorship program and the transformative impact it's having on both mentors and mentees.</p>
-                            <a href="#" class="btn">Read More</a>
-                        </div>
-                    </div>
+            <div class="related-post-content">
+                <div class="related-post-date">March 10, 2025</div>
+                <h3 class="related-post-title">The Power of Mentorship</h3>
+                <p class="related-post-excerpt">Highlighting MPower's mentorship program and the transformative impact it's having on both mentors and mentees.</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+        </div>
+        
+        <div class="related-post">
+            <div class="related-post-img">
+                <img src="../assets/images/blog/wealth-building.jpg" alt="Wealth Building">
+            </div>
+            <div class="related-post-content">
+                <div class="related-post-date">March 22, 2025</div>
+                <h3 class="related-post-title">Building Wealth in Our Communities</h3>
+                <p class="related-post-excerpt">Exploring financial literacy and investment strategies tailored for our community members.</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+        </div>
+        
+        <div class="related-post">
+            <div class="related-post-img">
+                <img src="../assets/images/blog/networking.jpg" alt="Networking">
+            </div>
+            <div class="related-post-content">
+                <div class="related-post-date">February 15, 2025</div>
+                <h3 class="related-post-title">The Art of Authentic Networking</h3>
+                <p class="related-post-excerpt">Building meaningful professional connections that honor your authentic self and advance your career.</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+        </div>
+    </div>
+// </div>
                     
                     <div class="related-post">
                         <div class="related-post-img">
