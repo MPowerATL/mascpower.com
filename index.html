@@ -150,7 +150,7 @@
         
         .logo img {
             height: auto;
-            max-height: 180px;
+            max-height: 70px;
             max-width: 280px;
             transition: all 0.3s ease;
         }
@@ -1852,7 +1852,15 @@ const navMenu = document.getElementById('nav-menu');
 navToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
-
+// Add this code to your JavaScript section (near the mobile navigation code)
+document.addEventListener('click', function(e) {
+    // If the clicked element is not inside the menu and not the toggle button itself
+    // AND the menu is currently active/visible
+    if (!navMenu.contains(e.target) && e.target !== navToggle && navMenu.classList.contains('active')) {
+        // Close the menu
+        navMenu.classList.remove('active');
+    }
+});
 // Close mobile menu when clicking nav links
 const navLinks = document.querySelectorAll('.nav-menu a');
 navLinks.forEach(link => {
