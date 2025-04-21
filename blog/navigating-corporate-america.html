@@ -693,7 +693,7 @@
                     <ul class="footer-links">
                         <li>
                             <span class="contact-icon"><i class="far fa-envelope"></i></span>
-                            info@mascpower.com
+                            <a href="mailto:info@mascpower.com" style="color: #aaa; text-decoration: none; transition: all 0.3s ease;">info@mascpower.com</a>
                         </li>
                         <li>
                             <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
@@ -711,38 +711,144 @@
     
     <script>
         // Header scroll effect
-        const header = document.getElementById('header');
-        const headerLogo = document.getElementById('header-logo');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('header-scrolled');
-            } else {
-                header.classList.remove('header-scrolled');
+const header = document.getElementById('header');
+const headerLogo = document.getElementById('header-logo');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        header.classList.add('header-scrolled');
+    } else {
+        header.classList.remove('header-scrolled');
+    }
+});
+
+// Mobile Navigation Toggle
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.getElementById('nav-menu');
+
+// Improved toggle functionality
+navToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the document click handler from immediately closing it
+    navMenu.classList.toggle('active');
+});
+
+// Clicking outside to close menu - improved to prevent conflicts
+document.addEventListener('click', function(e) {
+    // Only handle clicks outside when menu is open
+    if (navMenu.classList.contains('active')) {
+        // If clicked element is not inside the menu and not the toggle button
+        if (!navMenu.contains(e.target) && e.target !== navToggle) {
+            navMenu.classList.remove('active');
+        }
+    }
+});
+
+// Close mobile menu when clicking nav links
+const navLinks = document.querySelectorAll('.nav-menu a');
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+    });
+});
+
+// Enhanced content protection for all devices, especially mobile
+function enhanceContentProtection() {
+    // Disable context menu (right-click)
+    document.addEventListener('contextmenu', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable copy
+    document.addEventListener('copy', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable cut
+    document.addEventListener('cut', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable paste
+    document.addEventListener('paste', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable selection on mobile
+    document.addEventListener('selectstart', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Disable touchstart save on mobile (prevents "Add to Home Screen" long-press)
+    document.addEventListener('touchstart', e => {
+        if (!e.target.matches('input, textarea, select, button, a')) {
+            // Still allow touch events for interactive elements
+            if (e.touches.length > 1) {
+                e.preventDefault(); // Prevent pinch zoom which can trigger save dialogs
             }
-        });
+        }
+    }, { passive: false });
+    
+    // Disable save dialog on mobile
+    document.addEventListener('touchhold', e => {
+        if (!e.target.matches('input, textarea, select')) {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Prevent saving images by dragging
+    document.addEventListener('dragstart', e => {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    }, { passive: false });
+    
+    // Add CSS to disable tap highlight on mobile
+    const style = document.createElement('style');
+    style.innerHTML = `
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
         
-        // Mobile Navigation Toggle
-        const navToggle = document.getElementById('nav-toggle');
-        const navMenu = document.getElementById('nav-menu');
+        input, textarea, select {
+            -webkit-user-select: auto;
+            -khtml-user-select: auto;
+            -moz-user-select: auto;
+            -ms-user-select: auto;
+            user-select: auto;
+        }
         
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking nav links
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-        
-        // Prevent content copying
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('copy', e => e.preventDefault());
-        document.addEventListener('cut', e => e.preventDefault());
-        document.addEventListener('paste', e => e.preventDefault());
+        img {
+            pointer-events: none;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Initialize enhanced content protection
+document.addEventListener('DOMContentLoaded', enhanceContentProtection);
     </script>
 </body>
 </html>
