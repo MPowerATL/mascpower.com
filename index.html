@@ -1584,10 +1584,10 @@ iframe[src*="forms.app"] {
                 <div class="footer-legal">
                     <h3 class="footer-title">Legal</h3>
                     <ul class="footer-links">
-                        <li><a href="#terms-link" id="terms">Terms of Service</a></li>
-                        <li><a href="#privacy-link" id="privacy">Privacy Policy</a></li>
-                        <li><a href="#cookie-link" id="cookie-link">Cookie Policy</a></li>
-                        <li><a href="#disclaimer-link" id="disclaimer">Disclaimer</a></li>
+                        <li><a href="javascript:void(0);" id="terms-link">Terms of Service</a></li>
+                        <li><a href="javascript:void(0);" id="privacy-link">Privacy Policy</a></li>
+                        <li><a href="javascript:void(0);" id="cookie-link">Cookie Policy</a></li>
+                        <li><a href="javascript:void(0);" id="disclaimer-link">Disclaimer</a></li>
                     </ul>
                 </div>
                 
@@ -1918,16 +1918,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
         
-        // Skip link handling for modal links which will be handled separately
-        if (href === '#' && (
-            this.id === 'terms-link' || 
-            this.id === 'privacy-link' || 
-            this.id === 'cookie-link' || 
-            this.id === 'disclaimer-link'
-        )) {
-            return;
-        }
-        
         if (href === '#') return;
         
         e.preventDefault();
@@ -1945,85 +1935,59 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Modal Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Get modal elements
-    const termsModal = document.getElementById('terms-modal');
-    const privacyModal = document.getElementById('privacy-modal');
-    const cookieModal = document.getElementById('cookie-modal');
-    const disclaimerModal = document.getElementById('disclaimer-modal');
-    
-    // Get link elements
-    const termsLink = document.getElementById('terms-link');
-    const privacyLink = document.getElementById('privacy-link');
-    const cookieLink = document.getElementById('cookie-link');
-    const disclaimerLink = document.getElementById('disclaimer-link');
-    
-    // Get close buttons
-    const modalCloseButtons = document.querySelectorAll('.modal-close');
-    
-    // Modal open function
-    function openModal(modal) {
-        if (!modal) return;
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
         modal.style.display = 'block';
         setTimeout(() => {
             modal.classList.add('show');
         }, 10);
         document.body.style.overflow = 'hidden';
     }
-    
-    // Modal close function
-    function closeModal(modal) {
-        if (!modal) return;
-        modal.classList.remove('show');
-        setTimeout(() => {
-            modal.style.display = 'none';
-        }, 300);
-        document.body.style.overflow = '';
-    }
-    
-    // Add event listeners to links
-    if (termsLink) {
-        termsLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal(termsModal);
-        });
-    }
-    
-    if (privacyLink) {
-        privacyLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal(privacyModal);
-        });
-    }
-    
-    if (cookieLink) {
-        cookieLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal(cookieModal);
-        });
-    }
-    
-    if (disclaimerLink) {
-        disclaimerLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal(disclaimerModal);
-        });
-    }
-    
-    // Add event listeners to close buttons
-    modalCloseButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const modal = this.closest('.modal');
-            closeModal(modal);
-        });
+}
+
+function closeModal(modal) {
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+    document.body.style.overflow = '';
+}
+
+// Set up modal triggers
+document.getElementById('terms-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal('terms-modal');
+});
+
+document.getElementById('privacy-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal('privacy-modal');
+});
+
+document.getElementById('cookie-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal('cookie-modal');
+});
+
+document.getElementById('disclaimer-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal('disclaimer-modal');
+});
+
+// Set up modal close buttons
+document.querySelectorAll('.modal-close').forEach(button => {
+    button.addEventListener('click', function() {
+        const modal = this.closest('.modal');
+        closeModal(modal);
     });
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal')) {
-            closeModal(e.target);
-        }
-    });
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal')) {
+        closeModal(e.target);
+    }
 });
 
 // Form submission
@@ -2050,6 +2014,30 @@ if (applicationForm) {
         `;
     });
 }
+
+// Function to adjust the form height
+function adjustFormHeight() {
+    const joinText = document.querySelector('.join-text');
+    const joinForm = document.querySelector('.join-form iframe');
+    
+    if (joinText && joinForm) {
+        // Get the height of the text section
+        const textHeight = joinText.offsetHeight;
+        
+        // Set a minimum height (using the original height as a baseline)
+        const minHeight = 600;
+        
+        // Use the larger of the two heights
+        const newHeight = Math.max(textHeight, minHeight);
+        
+        // Apply the height
+        joinForm.style.height = newHeight + 'px';
+    }
+}
+
+// Call the function when the page loads and on resize
+window.addEventListener('load', adjustFormHeight);
+window.addEventListener('resize', adjustFormHeight);
 
 // Prevent content copying except on form fields
 document.addEventListener('contextmenu', e => {
