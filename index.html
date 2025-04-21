@@ -148,17 +148,16 @@
             align-items: center;
         }
         
-       /* Header Logo Adjustments */
-.logo img {
-    height: auto;
-    max-height: 70px; /* Increased from 50px */
-    max-width: 280px; /* Increased from 200px */
-    transition: all 0.3s ease;
-}
-
-.header-scrolled .logo img {
-    max-height: 60px; /* Increased from 40px */
-}
+        .logo img {
+            height: auto;
+            max-height: 180px;
+            max-width: 280px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-scrolled .logo img {
+            max-height: 60px;
+        }
         
         nav ul {
             display: flex;
@@ -485,7 +484,7 @@ iframe[src*="forms.app"] {
         .blog-slide-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: fill;
         }
         
         .blog-slide-content {
@@ -587,28 +586,66 @@ iframe[src*="forms.app"] {
             font-weight: bold;
         }
         
-        /* Join Section */
-        .join {
-            background-color: var(--primary-yellow);
-        }
-        
-        .join-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .join-text h2 {
-            color: var(--black);
-        }
-        
-        .join-form {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
+    /* Join Section */
+.join {
+    background-color: var(--primary-yellow);
+}
+
+.join-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: stretch;
+}
+
+.join-text h2 {
+    color: var(--black);
+    margin-bottom: 25px;
+}
+
+.join-text p {
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.join-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex; /* Added display flex */
+    flex-direction: column; /* Added to stack children vertically */
+    height: 100%; /* Make the form container take full height */
+}
+
+.join-form iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+    border: none;
+    display: block;
+    margin: 0;
+    flex: 1; /* Make the iframe take all available space */
+    min-height: 600px; /* Set a minimum height */
+}
+
+/* Additional responsive styles for the join section */
+@media (max-width: 1024px) {
+    .join-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .join-form {
+        padding: 20px;
+    }
+    
+    .join-form iframe {
+        height: 650px;
+    }
+}
         
         .form-group {
             margin-bottom: 20px;
@@ -1067,106 +1104,7 @@ iframe[src*="forms.app"] {
             </div>
         </div>
     </section>
-    
-    <!-- Support Section -->
-    <section class="section support" id="support">
-        <div class="container">
-            <h2 class="section-title">Support MPower</h2>
-            
-            <div class="support-options">
-                <div class="support-card">
-                    <div class="support-icon">S</div>
-                    <h3>Sponsor an Event</h3>
-                    <p>Partner with MPower to sponsor our networking events, educational panels, business expos, and community initiatives.</p>
-                    <p>Your sponsorship helps us create meaningful experiences that empower our members and strengthen our community.</p>
-                    <a href="#" class="btn">Become a Sponsor</a>
-                </div>
-                
-                <div class="support-card">
-                    <div class="support-icon">D</div>
-                    <h3>Make a Donation</h3>
-                    <p>Support our mission by making a donation to MPower. Your contribution helps fund our programs, events, and initiatives.</p>
-                    <p>Every donation makes a difference in creating opportunities for our members and community.</p>
-                    <a href="#" class="btn">Donate Now</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Apparel Section -->
-    <section class="section apparel" id="apparel">
-        <div class="container">
-            <h2 class="section-title">MPower Apparel</h2>
-            
-            <div class="coming-soon">
-                <h2>Coming Soon</h2>
-                <p>Our exclusive line of MPower branded apparel is currently in development. Stay tuned for our official launch where you'll be able to represent MPower with pride.</p>
-                <a href="#" class="btn">Get Notified</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <img src="./assets/images/mpower-full-logo.png" alt="MPower Logo">
-                    </div>
-                    <p>MPower is dedicated to creating a supportive space where Black and minority professional masculine-presenting women and FTM individuals can thrive through authentic connection and unity.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-nav">
-                    <h3 class="footer-title">Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="#blogs">Blogs</a></li>
-                        <li><a href="#guidelines">Guidelines</a></li>
-                        <li><a href="#join">Join Us</a></li>
-                        <li><a href="#apparel">Apparel</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-legal">
-                    <h3 class="footer-title">Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#terms" id="terms">Terms of Service</a></li>
-                        <li><a href="#privacy" id="privacy">Privacy Policy</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">Disclaimer</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-contact">
-                    <h3 class="footer-title">Contact Us</h3>
-                    <ul class="footer-links">
-                        <li>
-                            <span class="contact-icon"><i class="far fa-envelope"></i></span>
-                            info@mascpower.com
-                        </li>
-                        <li>
-                            <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
-                            Atlanta, GA
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 MPower. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-    
+     
     <!-- Terms Modal -->
     <div id="terms-modal" class="modal">
         <div class="modal-content">
@@ -1332,16 +1270,16 @@ iframe[src*="forms.app"] {
         </div>
     </section>
 
-    <!-- Events Section -->
+     <!-- Events Section -->
     <section class="section events" id="events">
         <div class="container">
             <h2 class="section-title">Events & Initiatives</h2>
             
             <div class="event-carousel">
-                <div class="event-slide active">
+               <div class="event-slide active">
                     <img src="./assets/images/events/networking-mixer.jpg" alt="Networking Mixer Event">
                     <div class="event-info">
-                        <span class="event-date">June 25, 2025</span>
+                       <span class="event-date">June 25, 2025</span>
                         <h3>Professional Networking Mixer</h3>
                         <p>Join us for an evening of networking, connection, and community building with professionals across various industries.</p>
                     </div>
@@ -1358,10 +1296,10 @@ iframe[src*="forms.app"] {
                     <img src="./assets/images/events/educational-panel.jpg" alt="Educational Panel">
                     <div class="event-info">
                         <span class="event-date">July 8, 2025</span>
-                        <h3>Navigating Professional Spaces Panel</h3>
+                       <h3>Navigating Professional Spaces Panel</h3>
                         <p>An educational discussion with industry leaders on creating authentic presence in professional environments.</p>
                     </div>
-                </div>
+               </div>
             </div>
             
             <div class="carousel-controls">
@@ -1424,7 +1362,7 @@ iframe[src*="forms.app"] {
             <div class="blog-carousel">
                 <div class="blog-slide active" style="display: flex;">
                     <div class="blog-slide-img">
-                        <img src="./assets/images/blog/authentic-self.jpg" alt="Blog Post">
+                        <img src="./assets/images/blog/authentic-self.png" alt="Blog Post">
                     </div>
                     <div class="blog-slide-content">
                         <span class="blog-date">April 5, 2025</span>
@@ -1449,7 +1387,10 @@ iframe[src*="forms.app"] {
                     <div class="blog-slide-img">
                         <img src="./assets/images/blog/wealth-building.jpg" alt="Vlog Post">
                     </div>
-                    <div class="blog-slide-content">
+ 
+
+
+                   <div class="blog-slide-content">
                         <span class="blog-date">March 22, 2025</span>
                         <h3>Building Wealth in Our Communities</h3>
                         <p>This vlog series explores financial literacy, investment strategies, and wealth-building specifically tailored for our community members.</p>
@@ -1527,25 +1468,26 @@ iframe[src*="forms.app"] {
         </div>
     </section>
     
-    <!-- Join Section -->
-    <section class="section join" id="join">
-        <div class="container">
-            <h2 class="section-title">Join MPower</h2>
+<!-- Join Section -->
+<section class="section join" id="join">
+    <div class="container">
+        <h2 class="section-title">Join MPower</h2>
+        
+        <div class="join-content">
+            <div class="join-text">
+                <h2>Become a Member</h2>
+                <p>MPower is an exclusive, members-only organization dedicated to supporting Black and minority professional masculine-presenting women and FTM individuals. <a href="bylaws.html">View our complete membership guidelines and by-laws</a>.</p>
+                <p>Our application process ensures we maintain a community of like-minded individuals committed to our mission of strength, authenticity, and unity.</p>
+                <p>Members pay dues that support our events, initiatives, and community programs, creating value for all who participate.</p>
+                <p>Complete the application form to begin the screening process. Our team will review your application and contact you for the next steps.</p>
+            </div>
             
-            <div class="join-content">
-                <div class="join-text">
-                    <h2>Become a Member</h2>
-                    <p>MPower is an exclusive, members-only organization dedicated to supporting Black and minority professional masculine-presenting women and FTM individuals. <a href="bylaws.html">View our complete membership guidelines and by-laws</a>.</p>
-                    <p>Our application process ensures we maintain a community of like-minded individuals committed to our mission of strength, authenticity, and unity.</p>
-                    <p>Members pay dues that support our events, initiatives, and community programs, creating value for all who participate.</p>
-                    <p>Complete the application form to begin the screening process. Our team will review your application and contact you for the next steps.</p>
-                </div>
-                
-                <div class="join-form">
-                    <div class="form-loading">Loading application form...</div>
-                    <iframe id="" allowtransparency="true" allowfullscreen="true" allow="geolocation" src="https://x8lgwpv0.forms.app/form/680119671b621500020c4dab" frameborder="0" style="width: 100vw; min-width:100%; height:600px; border:none;"></iframe>
-                </div>
-    </section>
+            <div class="join-form">
+                <iframe id="application-form" allowtransparency="true" allowfullscreen="true" allow="geolocation" src="https://x8lgwpv0.forms.app/form/680119671b621500020c4dab" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Support Section -->
     <section class="section support" id="support">
@@ -1621,8 +1563,8 @@ iframe[src*="forms.app"] {
                     <ul class="footer-links">
                         <li><a href="#terms" id="terms">Terms of Service</a></li>
                         <li><a href="#privacy" id="privacy">Privacy Policy</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="#cookie" id="cookie-link">Cookie Policy</a></li>
+                        <li><a href="#disclaimer" id="disclaimer">Disclaimer</a></li>
                     </ul>
                 </div>
                 
@@ -1792,7 +1734,81 @@ iframe[src*="forms.app"] {
             </div>
         </div>
     </div>
-    
+    <!-- Cookie Policy Modal -->
+<div id="cookie-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Cookie Policy</h2>
+        <div class="modal-body">
+            <h3>1. Introduction</h3>
+            <p>This Cookie Policy explains how MPower ("we", "us", or "our") uses cookies and similar technologies to recognize you when you visit our website ("Website"). It explains what these technologies are and why we use them, as well as your rights to control our use of them.</p>
+            
+            <h3>2. What Are Cookies?</h3>
+            <p>Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners to make their websites work, or to work more efficiently, as well as to provide reporting information.</p>
+            <p>Cookies set by the website owner (in this case, MPower) are called "first-party cookies". Cookies set by parties other than the website owner are called "third-party cookies". Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics).</p>
+            
+            <h3>3. Why Do We Use Cookies?</h3>
+            <p>We use first-party and third-party cookies for several reasons. Some cookies are required for technical reasons in order for our Website to operate, and we refer to these as "essential" or "strictly necessary" cookies. Other cookies enable us to track and target the interests of our users to enhance the experience on our Website. Third parties serve cookies through our Website for advertising, analytics, and other purposes.</p>
+            
+            <h3>4. Types of Cookies We Use</h3>
+            <p><strong>Essential Cookies:</strong> These cookies are strictly necessary to provide you with services available through our Website and to use some of its features, such as access to secure areas.</p>
+            <p><strong>Performance and Functionality Cookies:</strong> These cookies are used to enhance the performance and functionality of our Website but are non-essential to their use. However, without these cookies, certain functionality may become unavailable.</p>
+            <p><strong>Analytics and Customization Cookies:</strong> These cookies collect information that is used either in aggregate form to help us understand how our Website is being used or how effective our marketing campaigns are, or to help us customize our Website for you.</p>
+            <p><strong>Social Media Cookies:</strong> These cookies are used when you share information using a social media sharing button or "like" button on our Website or engage with our content on or through a social media platform such as Facebook, Twitter, or Instagram.</p>
+            
+            <h3>5. How Can You Control Cookies?</h3>
+            <p>You can decide whether or not to accept cookies through your internet browser settings. Most browsers also allow you to control cookies through their settings preferences. For more information about how to reject cookies using your internet browser settings, please follow the instructions provided by your browser (usually located within the "Help", "Tools" or "Edit" settings).</p>
+            <p>If you choose to reject cookies, you may still use our Website though your access to some functionality and areas of our Website may be restricted.</p>
+            
+            <h3>6. Changes to This Cookie Policy</h3>
+            <p>We may update this Cookie Policy from time to time in order to reflect, for example, changes to the cookies we use or for other operational, legal, or regulatory reasons. Please therefore revisit this Cookie Policy regularly to stay informed about our use of cookies and related technologies.</p>
+            <p>The date at the top of this Cookie Policy indicates when it was last updated.</p>
+            
+            <h3>7. Contact Us</h3>
+            <p>If you have any questions about our use of cookies or other technologies, please email us at info@mascpower.com.</p>
+            
+            <p><strong>Last Updated:</strong> April 11, 2025</p>
+        </div>
+    </div>
+</div>
+
+<!-- Disclaimer Modal -->
+<div id="disclaimer-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>Disclaimer</h2>
+        <div class="modal-body">
+            <h3>1. General Information</h3>
+            <p>The information provided on the MPower website is for general informational purposes only. All information on this site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the site.</p>
+            
+            <h3>2. No Liability</h3>
+            <p>Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of the use of the site or reliance on any information provided on the site. Your use of the site and your reliance on any information on the site is solely at your own risk.</p>
+            
+            <h3>3. External Links</h3>
+            <p>The Website may contain links to external websites that are not provided or maintained by or in any way affiliated with MPower. Please note that MPower does not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites.</p>
+            
+            <h3>4. Professional Advice</h3>
+            <p>The information on the Website is not intended as, and shall not be understood or construed as, professional advice. If you require specific professional advice, you should consult with a qualified professional.</p>
+            
+            <h3>5. Content Accuracy</h3>
+            <p>We strive to provide accurate and up-to-date information, but we make no representations or warranties that the content found on the Website is free of errors, omissions, or gaps in information.</p>
+            
+            <h3>6. Testimonials and Endorsements</h3>
+            <p>Testimonials and endorsements provided on the Website reflect the real-life experiences and opinions of our members. However, experiences are personal to those who expressed them, and may not necessarily be representative of all those who use our services. We do not claim, and you should not assume, that all members will have the same experiences.</p>
+            
+            <h3>7. Community Guidelines</h3>
+            <p>By participating in MPower events, initiatives, or online spaces, you agree to follow our Community Guidelines and By-Laws. MPower reserves the right to moderate content and remove members who violate these guidelines.</p>
+            
+            <h3>8. Changes to the Disclaimer</h3>
+            <p>We reserve the right to make changes and updates to this Disclaimer at any time. We encourage visitors to frequently check this page for any changes. Your continued use of the Website after any changes to this Disclaimer constitutes your acceptance of such changes.</p>
+            
+            <h3>9. Contact Information</h3>
+            <p>If you have any questions or concerns about this Disclaimer, please contact us at info@mascpower.com.</p>
+            
+            <p><strong>Last Updated:</strong> April 11, 2025</p>
+        </div>
+    </div>
+</div>
     <script>
         // Header scroll effect
         const header = document.getElementById('header');
@@ -1925,55 +1941,98 @@ iframe[src*="forms.app"] {
         }
         
         // Modal Functionality
-        const termsLink = document.querySelectorAll('a[href="#terms"]');
-        const privacyLink = document.querySelectorAll('a[href="#privacy"]');
-        const termsModal = document.getElementById('terms-modal');
-        const privacyModal = document.getElementById('privacy-modal');
-        const modalCloseButtons = document.querySelectorAll('.modal-close');
+const termsLink = document.querySelectorAll('a[href="#terms"]');
+const privacyLink = document.querySelectorAll('a[href="#privacy"]');
+const cookieLink = document.querySelectorAll('a[href="#cookie"]');
+const disclaimerLink = document.querySelectorAll('a[href="#disclaimer"]');
+
+const termsModal = document.getElementById('terms-modal');
+const privacyModal = document.getElementById('privacy-modal');
+const cookieModal = document.getElementById('cookie-modal');
+const disclaimerModal = document.getElementById('disclaimer-modal');
+
+const modalCloseButtons = document.querySelectorAll('.modal-close');
+
+function openModal(modal) {
+    modal.style.display = 'block';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modal) {
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+    document.body.style.overflow = '';
+}
+
+termsLink.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal(termsModal);
+    });
+});
+
+privacyLink.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal(privacyModal);
+    });
+});
+
+cookieLink.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal(cookieModal);
+    });
+});
+
+disclaimerLink.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal(disclaimerModal);
+    });
+});
+
+modalCloseButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const modal = this.closest('.modal');
+        closeModal(modal);
+    });
+});
+
+window.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal')) {
+        closeModal(e.target);
+    }
+});
+// Function to adjust the form height
+function adjustFormHeight() {
+    const joinText = document.querySelector('.join-text');
+    const joinForm = document.querySelector('.join-form iframe');
+    
+    if (joinText && joinForm) {
+        // Get the height of the text section
+        const textHeight = joinText.offsetHeight;
         
-        function openModal(modal) {
-            modal.style.display = 'block';
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10);
-            document.body.style.overflow = 'hidden';
-        }
+        // Set a minimum height (using the original height as a baseline)
+        const minHeight = 600;
         
-        function closeModal(modal) {
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-            document.body.style.overflow = '';
-        }
+        // Use the larger of the two heights
+        const newHeight = Math.max(textHeight, minHeight);
         
-        termsLink.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(termsModal);
-            });
-        });
-        
-        privacyLink.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(privacyModal);
-            });
-        });
-        
-        modalCloseButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const modal = this.closest('.modal');
-                closeModal(modal);
-            });
-        });
-        
-        window.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal')) {
-                closeModal(e.target);
-            }
-        });
-        
+        // Apply the height
+        joinForm.style.height = newHeight + 'px';
+    }
+}
+
+// Call the function when the page loads and on resize
+window.addEventListener('load', adjustFormHeight);
+window.addEventListener('resize', adjustFormHeight);
+  
         // Prevent content copying except on form fields
         document.addEventListener('contextmenu', e => {
             if (!e.target.matches('input, textarea, select')) {

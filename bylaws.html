@@ -148,17 +148,16 @@
             align-items: center;
         }
         
-        /* Header Logo Adjustments */
-.logo img {
-    height: auto;
-    max-height: 70px; /* Increased from 50px */
-    max-width: 280px; /* Increased from 200px */
-    transition: all 0.3s ease;
-}
-
-.header-scrolled .logo img {
-    max-height: 60px; /* Increased from 40px */
-}
+        .logo img {
+            height: auto;
+            max-height: 180px;
+            max-width: 280px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-scrolled .logo img {
+            max-height: 60px;
+        }
         
         nav ul {
             display: flex;
@@ -204,22 +203,29 @@
         }
         
         /* Bylaws Content Styles */
-        .bylaws {
-            padding-top: 150px;
-            padding-bottom: 80px;
-        }
-        
-        .bylaws-header {
-            background-color: var(--black);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .bylaws-header h1 {
-            color: var(--primary-yellow);
-        }
+        /* Bylaws Header Adjustments */
+.bylaws-header {
+    background-color: var(--black);
+    color: white;
+    padding: 70px 0 40px; /* Adjusted padding */
+    text-align: center;
+    margin-top: 80px; /* Added margin-top */
+    margin-bottom: 60px;
+}
+
+.bylaws-header h1 {
+    color: var(--primary-yellow);
+    font-size: 2.5rem; /* Slightly reduced size */
+    line-height: 1.2; /* Improved line height */
+    max-width: 90%; /* Constrain width */
+    margin: 0 auto 20px; /* Center and add bottom margin */
+}
+
+/* Adjust the overall bylaws section spacing */
+.bylaws {
+    padding-top: 60px; /* Reduced from 150px */
+    padding-bottom: 80px;
+}
         
         .bylaws-section {
             margin-bottom: 50px;
@@ -500,12 +506,12 @@
     </header>
 
     <!-- Bylaws Header -->
-    <div class="bylaws-header">
-        <div class="container">
-            <h1>MPower Community Guidelines & By-Laws</h1>
-            <p>Our foundation for creating a supportive, empowering, and authentic community</p>
-        </div>
+<div class="bylaws-header">
+    <div class="container">
+        <h1>MPower Community Guidelines &amp; By-Laws</h1>
+        <p>Our foundation for creating a supportive, empowering, and authentic community</p>
     </div>
+</div>
     
     <!-- Bylaws Content -->
     <section class="bylaws">

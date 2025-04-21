@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigating Corporate America as Your Authentic Self | MPower</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/crown-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Prevent copying content */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        :root {
+            --primary-yellow: #FFDE59;
+            --light-gray: #E4E2DD;
+            --black: #000000;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+        }
+        
+        body {
+            background-color: white;
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5 {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            letter-spacing: -1px;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-top: 30px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-yellow);
+            color: var(--black);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: var(--black);
+            color: var(--primary-yellow);
+            transform: translateY(-3px);
+        }
+        
+        .btn-black {
+            background-color: var(--black);
+            color: var(--primary-yellow);
+        }
+        
+        .btn-black:hover {
+            background-color: var(--primary-yellow);
+            color: var(--black);
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--black);
+            color: white;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .header-scrolled {
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: auto;
+            max-height: 180px;
+            max-width: 280px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-scrolled .logo img {
+            max-height: 60px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-yellow);
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Blog Post */
+        .blog-post {
+            padding: 150px 0 80px;
+        }
+        
+        .blog-header {
+            margin-bottom: 40px;
+        }
+        
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .blog-date {
+            display: inline-block;
+            color: var(--medium-gray);
+            margin-right: 20px;
+            font-size: 1rem;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .blog-author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .blog-author-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .blog-author-title {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+        
+        .blog-featured-img {
+            width: 100%;
+            height: 450px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .blog-featured-img img {
+            
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .blog-content h2 {
+            color: var(--black);
+        }
+        
+        .blog-content h3 {
+            color: var(--dark-gray);
+        }
+        
+        .blog-content p {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 25px;
+            padding-left: 25px;
+        }
+        
+        .blog-content li {
+            margin-bottom: 10px;
+            color: var(--dark-gray);
+        }
+        
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary-yellow);
+            padding: 20px;
+            background-color: var(--light-gray);
+            margin: 30px 0;
+            font-style: italic;
+        }
+        
+        .blog-content blockquote p {
+            margin-bottom: 0;
+        }
+        
+        .blog-share {
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .share-text {
+            font-weight: 600;
+            margin-right: 20px;
+        }
+        
+        .share-links {
+            display: flex;
+        }
+        
+        .share-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .share-link:hover {
+            background-color: var(--primary-yellow);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+        
+        .blog-nav {
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .blog-nav-item {
+            flex: 0 0 48%;
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--black);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-nav-item:hover {
+            background-color: var(--primary-yellow);
+            transform: translateY(-5px);
+        }
+        
+        .blog-nav-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .blog-nav-text span {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--medium-gray);
+        }
+        
+        .blog-nav-text strong {
+            font-size: 1.1rem;
+        }
+        
+        .blog-related {
+            margin-top: 100px;
+        }
+        
+        .blog-related h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .related-posts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .related-post {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .related-post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .related-post-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .related-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .related-post:hover .related-post-img img {
+            transform: scale(1.1);
+        }
+        
+        .related-post-content {
+            padding: 25px;
+        }
+        
+        .related-post-date {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .related-post-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .related-post-excerpt {
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Call to Action */
+        .cta {
+            background-color: var(--black);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-top: 100px;
+        }
+        
+        .cta h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+        }
+        
+        .footer-about p {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary-yellow);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-yellow);
+        }
+        
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+        
+        .contact-icon {
+            margin-right: 15px;
+            color: var(--primary-yellow);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-bottom a:hover {
+            color: var(--primary-yellow);
+        }
+        
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+            
+            .related-posts {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-post {
+                padding: 120px 0 60px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .blog-featured-img {
+                height: 350px;
+            }
+            
+            .blog-nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .blog-nav-item {
+                flex: 0 0 100%;
+            }
+            
+            .related-posts {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--black);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 100px;
+                transition: all 0.4s ease;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 0 0 25px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/images/mpower-full-logo.png" alt="MPower Logo" id="header-logo">
+                </a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#events">Events</a></li>
+                    <li><a href="../index.html#blog">Blog</a></li>
+                    <li><a href="../index.html#guidelines">Guidelines</a></li>
+                    <li><a href="../index.html#join">Join Us</a></li>
+                    <li><a href="../index.html#apparel">Apparel</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Post Section -->
+    <section class="blog-post">
+        <div class="container">
+            <div class="blog-header">
+                <h1>Navigating Corporate America as Your Authentic Self</h1>
+                
+                <div class="blog-meta">
+                    <span class="blog-date">April 5, 2025</span>
+                    
+                    <div class="blog-author">
+                        <div class="blog-author-img">
+                            <img src="../assets/images/team/nate.jpg" alt="Nate Holder">
+                        </div>
+                        <div>
+                            <div class="blog-author-name">Nate Holder</div>
+                            <div class="blog-author-title">Technology Committee Head</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-featured-img">
+                    <img src="../assets/images/blog/authentic-self.png" alt="Professional in corporate setting">
+                </div>
+            </div>
+            
+            <div class="blog-content">
+                <p>In the corridors of corporate America, the journey toward authentic self-expression has often been fraught with challenges for Black and minority masculine-presenting women and FTM individuals. The traditional corporate landscape was not designed with our unique experiences in mind, yet increasingly, we are not only finding our place but transforming these spaces through our presence.</p>
+                
+                <h2>The Mask We No Longer Need to Wear</h2>
+                
+                <p>For decades, professionals who didn't fit the conventional mold felt pressure to conform—to dress differently, speak differently, and sometimes even think differently than who they truly were. The exhausting ritual of "code-switching" became a survival strategy rather than a choice.</p>
+                
+                <p>As Audre Lorde powerfully stated, "If I didn't define myself for myself, I would be crunched into other people's fantasies for me and eaten alive." This wisdom continues to resonate with those of us navigating spaces where we have historically been underrepresented.</p>
+                
+                <p>Today, there's a profound shift happening. More of us are choosing to show up authentically, refusing to compartmentalize our identities for the comfort of others. This isn't just a personal victory—it's reshaping what professional environments look and feel like.</p>
+                
+                <h2>The Business Case for Authenticity</h2>
+                
+                <p>What many corporations are finally beginning to understand is that authenticity isn't just good for the individual—it's good for business. Research consistently shows that diverse teams produce more innovative solutions and better financial results. But diversity alone isn't enough; inclusion is what allows that diversity to thrive.</p>
+                
+                <p>When employees can bring their full selves to work without fear of judgment or discrimination, several things happen:</p>
+                
+                <ol>
+                    <li><strong>Energy is redirected to productivity</strong> - The mental energy previously spent on hiding aspects of oneself becomes available for creative problem-solving and innovation.</li>
+                    <li><strong>Unique perspectives enhance decision-making</strong> - Our lived experiences provide valuable insights that homogeneous teams simply don't have access to.</li>
+                    <li><strong>Authentic leadership inspires others</strong> - When those in leadership positions model authenticity, it creates a ripple effect throughout the organization.</li>
+                    <li><strong>Retention improves significantly</strong> - People stay where they feel valued for who they truly are.</li>
+                </ol>
+                
+                <h2>Strategies for Authentic Navigation</h2>
+                
+                <p>While the corporate world is evolving, the reality is that not all environments are equally supportive. Here are strategies that members of our community have successfully employed:</p>
+                
+                <h3>1. Find Your People</h3>
+                
+                <p>Seek out employee resource groups, mentors, and allies who understand your experience. Even one trusted colleague can make a significant difference in your sense of belonging.</p>
+                
+                <p>Within the MPower community, we've seen countless examples of members connecting and forming powerful support networks across industries. These connections often become the foundation for professional resilience.</p>
+                
+                <h3>2. Set Boundaries Unapologetically</h3>
+                
+                <p>Authenticity doesn't mean sharing every aspect of yourself. It's entirely appropriate to maintain professional boundaries while still being true to who you are. You get to decide what parts of yourself you share in professional settings.</p>
+                
+                <h3>3. Choose Environments Strategically</h3>
+                
+                <p>When possible, research company culture before joining. Look beyond diversity statements to actual representation in leadership, benefits policies that support all family structures, and how the company responds to societal issues affecting marginalized communities.</p>
+                
+                <h3>4. Recognize the Power of Representation</h3>
+                
+                <p>Simply by showing up as yourself, you create space for others. One MPower member in financial services shared how a junior analyst approached them after a meeting to say, "Seeing someone like you in leadership makes me believe I can succeed here too."</p>
+                
+                <p>This ripple effect of representation cannot be underestimated. Each of us who chooses authenticity makes it easier for those who follow.</p>
+                
+                <h2>When Challenges Arise</h2>
+                
+                <p>Despite our best efforts, challenges will arise. Microaggressions, misgendering, and outright discrimination remain realities in some workplaces. When these situations occur:</p>
+                
+                <ul>
+                    <li><strong>Document incidents</strong> consistently and factually</li>
+                    <li><strong>Access support</strong> from trusted colleagues, ERGs, or external communities like MPower</li>
+                    <li><strong>Know your rights</strong> and the resources available through HR and external organizations</li>
+                    <li><strong>Prioritize your wellbeing</strong> above all else—no job is worth compromising your mental health</li>
+                </ul>
+                
+                <h2>Creating Systemic Change</h2>
+                
+                <p>While individual navigation strategies are essential, lasting change requires systemic transformation. Many MPower members are leading this charge by:</p>
+                
+                <ul>
+                    <li>Participating in policy development at their organizations</li>
+                    <li>Mentoring the next generation of professionals</li>
+                    <li>Starting businesses that model inclusive practices from the ground up</li>
+                    <li>Advocating for industry-wide standards around diversity, equity and inclusion</li>
+                </ul>
+                
+                <p>As one MPower entrepreneur recently put it, "Instead of trying to fit into spaces that weren't built for us, we're creating new spaces and transforming existing ones."</p>
+                
+                <h2>The Path Forward</h2>
+                
+                <p>The corporate landscape is changing—too slowly for some, but changing nonetheless. Each of us plays a role in that transformation simply by bringing our authentic selves to work.</p>
+                
+                <p>The pressure to conform hasn't disappeared entirely, but the power of collective authenticity grows stronger every day. When we connect through communities like MPower, we remind ourselves that we are not alone in this journey.</p>
+                
+                <p>As we continue navigating corporate America authentically, we do so knowing that our presence is not just legitimate but necessary—for our individual fulfillment, for our communities, and for the evolution of workplaces that truly value human diversity in all its forms.</p>
+                
+                <div class="blog-share">
+                    <div class="share-text">Share This Article</div>
+                    <div class="share-links">
+                        <a href="#" class="share-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="share-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-link"><i class="far fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="blog-nav">
+                    <a href="#" class="blog-nav-item">
+                        <div class="blog-nav-icon"><i class="fas fa-arrow-left"></i></div>
+                        <div class="blog-nav-text">
+                            <span>Previous Post</span>
+                            <strong>The Power of Mentorship</strong>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="blog-nav-item">
+                        <div class="blog-nav-text">
+                            <span>Next Post</span>
+                            <strong>Building Wealth in Our Communities</strong>
+                        </div>
+                        <div class="blog-nav-icon"><i class="fas fa-arrow-right"></i></div>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="blog-related">
+                <h2>Related Articles</h2>
+                
+                <div class="related-posts">
+                    <div class="related-post">
+                        <div class="related-post-img">
+                            <img src="../assets/images/blog/mentorship.jpg" alt="Mentorship">
+                        </div>
+                        <div class="related-post-content">
+                            <div class="related-post-date">March 10, 2025</div>
+                            <h3 class="related-post-title">The Power of Mentorship</h3>
+                            <p class="related-post-excerpt">Highlighting MPower's mentorship program and the transformative impact it's having on both mentors and mentees.</p>
+                            <a href="#" class="btn">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="related-post">
+                        <div class="related-post-img">
+                            <img src="../assets/images/blog/wealth-building.jpg" alt="Wealth Building">
+                        </div>
+                        <div class="related-post-content">
+                            <div class="related-post-date">March 22, 2025</div>
+                            <h3 class="related-post-title">Building Wealth in Our Communities</h3>
+                            <p class="related-post-excerpt">Exploring financial literacy and investment strategies tailored for our community members.</p>
+                            <a href="#" class="btn">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="related-post">
+                        <div class="related-post-img">
+                            <img src="../assets/images/blog/networking.jpg" alt="Networking">
+                        </div>
+                        <div class="related-post-content">
+                            <div class="related-post-date">February 15, 2025</div>
+                            <h3 class="related-post-title">The Art of Authentic Networking</h3>
+                            <p class="related-post-excerpt">Building meaningful professional connections that honor your authentic self and advance your career.</p>
+                            <a href="#" class="btn">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Join Our Community</h2>
+            <p>Connect with like-minded professionals who share your experiences and understand your journey. MPower offers support, networking, and growth opportunities.</p>
+            <a href="../index.html#join" class="btn">Become a Member</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="../assets/images/mpower-full-logo.png" alt="MPower Logo">
+                    </div>
+                    <p>MPower is dedicated to creating a supportive space where Black and minority professional masculine-presenting women and FTM individuals can thrive through authentic connection and unity.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-nav">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html#home">Home</a></li>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#events">Events</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                        <li><a href="../index.html#guidelines">Guidelines</a></li>
+                        <li><a href="../index.html#join">Join Us</a></li>
+                        <li><a href="../index.html#apparel">Apparel</a></li>
+                        <li><a href="bylaws.html">By-Laws</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="footer-legal">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html#terms">Terms of Service</a></li>
+                        <li><a href="../index.html#privacy">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>
+                            <span class="contact-icon"><i class="far fa-envelope"></i></span>
+                            info@mascpower.com
+                        </li>
+                        <li>
+                            <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+                            Atlanta, GA
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MPower. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        const headerLogo = document.getElementById('header-logo');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+        
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Prevent content copying
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+        document.addEventListener('cut', e => e.preventDefault());
+        document.addEventListener('paste', e => e.preventDefault());
+    </script>
+</body>
+</html>
