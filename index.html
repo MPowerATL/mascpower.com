@@ -541,6 +541,20 @@ iframe[src*="forms.app"] {
             font-size: 0.9rem;
             color: var(--medium-gray);
         }
+        /* Hide unfinished blog posts */
+.blog-slide:not(.active) {
+    display: none !important;
+}
+
+/* Hide carousel dots for hidden slides */
+.blog .carousel-controls .carousel-dot:not(:first-child) {
+    display: none;
+}
+
+/* Disable blog carousel auto-rotation */
+.blog-slide.active {
+    display: flex !important; /* Force display of the active slide */
+}
         
         /* Community Guidelines */
         .guidelines {
