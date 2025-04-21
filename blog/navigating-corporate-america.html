@@ -441,10 +441,22 @@
         }
         /* Add this to your existing CSS in the <style> section */
 .blog-share,
-.blog-related {
-    display: none; /* This hides the elements but keeps them in the DOM */
+.blog-related,
+.blog-nav {
+    display: none; /* Hides these sections but keeps them in the HTML for future use */
+}
+/* Hide related articles and blog navigation */
+.blog-related,
+.blog-nav {
+    display: none; /* Hides these sections but keeps them in the HTML for future use */
 }
 
+/* Add a stylish ending to the article */
+.blog-content {
+    position: relative;
+    padding-bottom: 40px;
+    border-bottom: 2px solid var(--primary-yellow);
+}
 /* Optional: Add a "coming soon" message at the bottom of the article */
 .blog-content::after {
     content: '';
