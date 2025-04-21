@@ -1573,7 +1573,6 @@ iframe[src*="forms.app"] {
                     <ul class="footer-links">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
-                        <li><a href="#events">Events</a></li>
                         <li><a href="#blogs">Blogs</a></li>
                         <li><a href="#guidelines">Guidelines</a></li>
                         <li><a href="#join">Join Us</a></li>
@@ -1585,10 +1584,10 @@ iframe[src*="forms.app"] {
                 <div class="footer-legal">
                     <h3 class="footer-title">Legal</h3>
                     <ul class="footer-links">
-                        <li><a href="#terms" id="terms">Terms of Service</a></li>
-                        <li><a href="#privacy" id="privacy">Privacy Policy</a></li>
-                        <li><a href="#cookie" id="cookie-link">Cookie Policy</a></li>
-                        <li><a href="#disclaimer" id="disclaimer">Disclaimer</a></li>
+                        <li><a href="#terms-link" id="terms">Terms of Service</a></li>
+                        <li><a href="#privacy-link" id="privacy">Privacy Policy</a></li>
+                        <li><a href="#cookie-link" id="cookie-link">Cookie Policy</a></li>
+                        <li><a href="#disclaimer-link" id="disclaimer">Disclaimer</a></li>
                     </ul>
                 </div>
                 
@@ -1983,10 +1982,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Modal Functionality
-const termsLink = document.querySelectorAll('a[href="#terms"]');
-const privacyLink = document.querySelectorAll('a[href="#privacy"]');
-const cookieLink = document.querySelectorAll('a[href="#cookie"]');
-const disclaimerLink = document.querySelectorAll('a[href="#disclaimer"]');
+const termsLink = document.getElementById('terms-link');
+const privacyLink = document.getElementById('privacy-link');
+const cookieLink = document.getElementById('cookie-link');
+const disclaimerLink = document.getElementById('disclaimer-link');
 
 const termsModal = document.getElementById('terms-modal');
 const privacyModal = document.getElementById('privacy-modal');
@@ -2011,34 +2010,31 @@ function closeModal(modal) {
     document.body.style.overflow = '';
 }
 
-termsLink.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal(termsModal);
-    });
+// Terms of Service
+termsLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal(termsModal);
 });
 
-privacyLink.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal(privacyModal);
-    });
+// Privacy Policy
+privacyLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal(privacyModal);
 });
 
-cookieLink.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal(cookieModal);
-    });
+// Cookie Policy
+cookieLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal(cookieModal);
 });
 
-disclaimerLink.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal(disclaimerModal);
-    });
+// Disclaimer
+disclaimerLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal(disclaimerModal);
 });
 
+// Close buttons
 modalCloseButtons.forEach(button => {
     button.addEventListener('click', function() {
         const modal = this.closest('.modal');
@@ -2046,11 +2042,15 @@ modalCloseButtons.forEach(button => {
     });
 });
 
+// Close when clicking outside the modal
 window.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal')) {
         closeModal(e.target);
     }
 });
+
+
+
 // Function to adjust the form height
 function adjustFormHeight() {
     const joinText = document.querySelector('.join-text');
