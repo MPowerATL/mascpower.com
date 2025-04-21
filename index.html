@@ -466,6 +466,16 @@ iframe[src*="forms.app"] {
         .blog {
             background-color: var(--light-gray);
         }
+        .blog-featured-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-featured-img:hover img {
+    transform: scale(1.02);
+}
         
         .blog-carousel {
             position: relative;
