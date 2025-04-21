@@ -150,7 +150,7 @@
         
         .logo img {
             height: auto;
-            max-height: 70px;
+            max-height: 120px;
             max-width: 280px;
             transition: all 0.3s ease;
         }
@@ -1833,7 +1833,7 @@ iframe[src*="forms.app"] {
     </div>
 </div>
     <script>
-        // Header scroll effect
+   // Header scroll effect
 const header = document.getElementById('header');
 const headerLogo = document.getElementById('header-logo');
 
@@ -1852,7 +1852,8 @@ const navMenu = document.getElementById('nav-menu');
 navToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
-// Add this code to your JavaScript section (near the mobile navigation code)
+
+// Add this code to handle clicking outside the menu
 document.addEventListener('click', function(e) {
     // If the clicked element is not inside the menu and not the toggle button itself
     // AND the menu is currently active/visible
@@ -1861,6 +1862,7 @@ document.addEventListener('click', function(e) {
         navMenu.classList.remove('active');
     }
 });
+
 // Close mobile menu when clicking nav links
 const navLinks = document.querySelectorAll('.nav-menu a');
 navLinks.forEach(link => {
