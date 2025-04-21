@@ -1849,17 +1849,20 @@ window.addEventListener('scroll', () => {
 const navToggle = document.getElementById('nav-toggle');
 const navMenu = document.getElementById('nav-menu');
 
-navToggle.addEventListener('click', () => {
+// Improved toggle functionality
+navToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the document click handler from immediately closing it
     navMenu.classList.toggle('active');
 });
 
-// Add this code to handle clicking outside the menu
+// Clicking outside to close menu - improved to prevent conflicts
 document.addEventListener('click', function(e) {
-    // If the clicked element is not inside the menu and not the toggle button itself
-    // AND the menu is currently active/visible
-    if (!navMenu.contains(e.target) && e.target !== navToggle && navMenu.classList.contains('active')) {
-        // Close the menu
-        navMenu.classList.remove('active');
+    // Only handle clicks outside when menu is open
+    if (navMenu.classList.contains('active')) {
+        // If clicked element is not inside the menu and not the toggle button
+        if (!navMenu.contains(e.target) && e.target !== navToggle) {
+            navMenu.classList.remove('active');
+        }
     }
 });
 
