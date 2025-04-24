@@ -1,0 +1,4 @@
+# Redirect domain variants to primary domain
+https://www.mascpower.com/* https://mascpower.com/:splat 301!
+http://www.mascpower.com/* https://mascpower.com/:splat 301!
+http://mascpower.com/* https://mascpower.com/:splat 301!
