@@ -9,6 +9,10 @@ RewriteRule ^(.*)$ https://mascpower.com/$1 [L,R=301]
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://mascpower.com/$1 [L,R=301]
 
+# Redirect index.html to the root domain
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+RewriteRule ^index\.html$ https://mascpower.com/ [R=301,L]
+
 # Set default index page
 DirectoryIndex index.html
 
